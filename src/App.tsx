@@ -1,19 +1,20 @@
-import type { NoteProp } from "./Doc";
+import { Sidebar } from "./components/Sidebar";
+import { Topbar } from "./components/Topbar";
+import { Home } from "./pages/Home";
+
 
 
 function App() {
-  const note: NoteProp = {
-    id: Date.now(),
-    title: 'first note',
-    desc: 'React for today'
-  }
+  
   return(
     <>
-      
-      <h1 className="text-2xl text-red-500">
-        {note.desc}
-      </h1>
-        
+        <div className="min-h-screen bg-gray-100 w-full">
+          <Topbar />
+          <div className="flex gap-2">
+            <Sidebar />
+            <Home />
+          </div>
+        </div>
     </>
   )
 }
