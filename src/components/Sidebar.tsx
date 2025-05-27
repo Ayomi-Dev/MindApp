@@ -1,7 +1,9 @@
 import React from 'react'
 import Img from '../assets/img.jpg'
-import { FaTrash } from 'react-icons/fa6'
+import { FaNoteSticky, FaTrash } from 'react-icons/fa6'
 import { MdNoteAdd } from 'react-icons/md'
+import { Link } from 'react-router-dom'
+import { FaHome } from 'react-icons/fa'
 
 export const Sidebar = () => {
   return (
@@ -17,18 +19,24 @@ export const Sidebar = () => {
           <span className="bg-red-500 rounded-full w-5 h-5"></span>
         </div>
         <ul className="block w-[80%] mx-auto justify-center items-center text-gray-400 py-2">
-          <li className="flex gap-2 text-sm">
-            <FaTrash className='' />
-            <span>Trash</span>
-          </li>
-          <li className="flex gap-2 text-sm">
-            <FaTrash className='' />
-            <span>Trash</span>
-          </li>
-          <li className="flex gap-2 text-sm">
-            <FaTrash className='' />
-            <span>Trash</span>
-          </li>
+            <Link to="/">
+              <li className="flex items-center gap-3 text-sm py-1">
+                <FaHome className=' text-black' />
+                <span>Home</span>
+              </li>
+            </Link>
+
+            <Link to="/create">
+              <li className="flex items-center gap-3 text-sm py-1">
+
+                <FaNoteSticky className=' text-black' />
+                <span>New Note</span>
+              </li>
+            </Link>
+            <li className="flex items-center gap-3 text-sm py-1">
+              <FaTrash className='' />
+              <span>Trash</span>
+            </li>
         </ul>
       </div>
 

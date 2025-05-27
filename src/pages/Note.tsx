@@ -1,7 +1,9 @@
 import React from 'react'
+import { useNoteContext } from '../context/NoteContext'
 
 export const Note = () => {
+  const { notes } = useNoteContext();
   return (
-    <div>Note</div>
+    console.log(notes)
   )
 }
