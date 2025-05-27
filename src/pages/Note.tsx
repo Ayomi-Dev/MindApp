@@ -4,6 +4,6 @@ import { useNoteContext } from '../context/NoteContext'
 export const Note = () => {
   const { notes } = useNoteContext();
   return (
-    console.log(notes)
+    <></>
   )
 }
