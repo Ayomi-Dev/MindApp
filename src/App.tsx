@@ -1,5 +1,6 @@
 import { Sidebar } from "./components/Sidebar";
 import { Topbar } from "./components/Topbar";
+import { Create } from "./pages/Create";
 import { Home } from "./pages/Home";
 
 
@@ -12,7 +13,8 @@ function App() {
           <Topbar />
           <div className="flex gap-2">
             <Sidebar />
-            <Home />
+            {/* <Home /> */}
+            <Create />
           </div>
         </div>
     </>

@@ -47,7 +47,7 @@ export const Home = () => {
           <span>This Month</span>
         </div>
         <div className="flex flex-wrap gap-4 w-full">
-          <div className="bg-yellow-200 rounded-md p-2 flex-[1_1_100%] md:flex-[1_1_calc(50%_-_1rem)] min-h-[100px]">
+          <div className="bg-yellow-200 rounded-md p-2 flex-[1_1_100%] md:flex-[1_1_calc(30%_-_1rem)] min-h-[100px]">
 
             <span className="text-gray-400 text-xs">26/05/2025</span>
             <div className="flex flex-1 justify-between items-center py-2">
@@ -62,7 +62,7 @@ export const Home = () => {
               repellat facere velit ipsam aut sed harum.
             </p>
           </div>
-          <div className="bg-green-200 rounded-md p-2 flex-[1_1_100%] md:flex-[1_1_calc(50%_-_1rem)] min-h-[100px]">
+          <div className="bg-green-200 rounded-md p-2 flex-[1_1_100%] md:flex-[1_1_calc(30%_-_1rem)] min-h-[100px]">
 
             <span className="text-gray-400 text-xs">26/05/2025</span>
             <div className="flex flex-1 justify-between items-center py-2">
@@ -78,7 +78,7 @@ export const Home = () => {
             </p>
           </div>
 
-          <div className="bg-indigo-200 rounded-md p-2 flex-[1_1_100%] md:flex-[1_1_calc(50%_-_1rem)] min-h-[100px]">
+          <div className="bg-indigo-200 rounded-md p-2 flex-[1_1_100%] md:flex-[1_1_calc(30%_-_1rem)] min-h-[100px]">
 
             <span className="text-gray-400 text-xs">26/05/2025</span>
             <div className="flex flex-1 justify-between items-center py-2">
