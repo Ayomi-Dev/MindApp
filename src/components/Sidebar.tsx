@@ -1,4 +1,3 @@
-import React from 'react'
 import Img from '../assets/img.jpg'
 import { FaNoteSticky, FaTrash } from 'react-icons/fa6'
 import { MdNoteAdd } from 'react-icons/md'

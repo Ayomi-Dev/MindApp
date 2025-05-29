@@ -7,8 +7,10 @@ export const NoteForm = () => {
   const [ noteTitle, setNoteTitle ] = useState('');
   const [ noteContent, setNoteContent ] = useState('');
   const [ noteCategory, setNoteCategory ] = useState('');
+  const date = new Date()
+  const dateFormat = date.toDateString() // extracts date from the date object
   const time = new Date()
-  const timeAndDay = time.toLocaleTimeString()
+  const timeFormat = time.toLocaleTimeString('en-US', {hour12: true}) // changing time to 12hr format
   const id = Date.now()
   const [ noteId, setNoteId] = useState(id);
 
@@ -23,7 +25,7 @@ export const NoteForm = () => {
       title: noteTitle,
       category: noteCategory,
       content: noteContent,
-      createdAt: timeAndDay
+      createdAt: `${dateFormat} at ${timeFormat}`
     })
     console.log(notes)
     setTimeout(() => {

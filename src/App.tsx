@@ -3,6 +3,7 @@ import { Sidebar } from "./components/Sidebar";
 import { Topbar } from "./components/Topbar";
 import { Create } from "./pages/Create";
 import { Home } from "./pages/Home";
+import { NotePage } from "./pages/NotePage";
 
 
 
@@ -18,7 +19,7 @@ function App() {
             
               <Route path="/" element={<Home />} />
               <Route path="/create" element={<Create />} />
-              
+              <Route path="/note/:id" element= {<NotePage />} />
             
             </Routes>
           </div>

@@ -3,7 +3,7 @@ import {  FaFolderOpen, FaNoteSticky } from 'react-icons/fa6'
 import { NoteCard } from '../components/NoteCard'
 
 export const Home = () => {
-  
+ 
   return (
     <main className="flex-1 px-4">
       <section className="w-full p-5">
@@ -49,7 +49,6 @@ export const Home = () => {
           <div className="rounded-md p-2 flex-[1_1_100%]">
               <FaNoteSticky className='text-2xl text-gray-300' />
           </div>
-
           <NoteCard />
         </div>
       </section>

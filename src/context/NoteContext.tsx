@@ -9,18 +9,18 @@ interface Note {
   createdAt: string,
 }
 
-///Define the context with the shape of the note state
+//Define the context with the shape of the note state
 interface NoteContextType {
   notes: Note[];
   addNote: (note: Note) => void;
-//   updateNote: (id: number, updatedNote: Partial<Note>) => void;
-//   deleteNote: (id: number) => void;
+  updateNote: (id: number, updatedNote: Partial<Note>) => void;
+  deleteNote: (id: number) => void;
 }
 
-// Create the context with a default value
+// Creates the context with a default value
 const NoteContext = createContext<NoteContextType | undefined>(undefined);
 
-// Create a provider component
+// Creates a provider component
 export const NoteProvider = ({children}: {children: ReactNode}) => {
   const [notes, setNotes] = useState<Note[]>([]);
 
@@ -28,9 +28,17 @@ export const NoteProvider = ({children}: {children: ReactNode}) => {
     setNotes(prevNotes => [...prevNotes, note]);
   };
 
+  const updateNote = () => {
+
+  }
+
+  const deleteNote = (id: number ) => {
+    // Filter out the note with the given id
+    setNotes(notes.filter(note => note.id !== id));
+  }
   return(
-    <NoteContext.Provider value = {{notes, addNote}} >
-        {children}
+    <NoteContext.Provider value = {{notes, addNote, updateNote, deleteNote}} >
+        { children }
     </NoteContext.Provider>
   )
 
