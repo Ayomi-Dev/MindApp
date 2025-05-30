@@ -8,6 +8,7 @@ interface Note {
   content: string,
   bgColor?: string,
   createdAt: string,
+  updatedAt?: string
 }
 
 //Define the context with the shape of the note state
@@ -29,8 +30,12 @@ export const NoteProvider = ({children}: {children: ReactNode}) => {
     setNotes(prevNotes => [...prevNotes, note]);
   };
 
-  const updateNote = () => {
-
+  const updateNote = (id: number, updatedNote:Partial<Note>) => {
+    setNotes(prevNotes => 
+      prevNotes.map(note => 
+        note.id === id ? { ...note, ...updatedNote } : note
+      )
+    );
   }
 
   const deleteNote = (id: number ) => {

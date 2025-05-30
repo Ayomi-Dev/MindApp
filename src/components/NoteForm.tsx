@@ -27,7 +27,8 @@ export const NoteForm = () => {
       category: noteCategory,
       content: noteContent,
       bgColor: noteBgColor,
-      createdAt: `${dateFormat} at ${timeFormat}`
+      createdAt: `${dateFormat} at ${timeFormat}`,
+      updatedAt: ''
     })
     console.log(notes)
     setTimeout(() => {
@@ -64,9 +65,6 @@ export const NoteForm = () => {
                    className='w-6 h-6 rounded-[50%] cursor-pointer' />
           </div>
         </div>
-          
-          
-    
         
         <label htmlFor="" className="text-sm block py-2 text-gray-700" >Title</label>
         <input type="text" name='title' required
