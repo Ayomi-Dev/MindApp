@@ -5,7 +5,8 @@ interface Note {
   id: number,
   title: string,
   category: string,
-  content: string
+  content: string,
+  bgColor?: string,
   createdAt: string,
 }
 

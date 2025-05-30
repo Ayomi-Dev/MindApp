@@ -1,12 +1,13 @@
 import  { useState } from 'react'
 import { useNoteContext } from '../context/NoteContext'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const NoteForm = () => {
   const {notes,  addNote } = useNoteContext();
   const [ noteTitle, setNoteTitle ] = useState('');
   const [ noteContent, setNoteContent ] = useState('');
   const [ noteCategory, setNoteCategory ] = useState('');
+  const [ noteBgColor, setNoteBgColor ] = useState<string>('#ffffff');
   const date = new Date()
   const dateFormat = date.toDateString() // extracts date from the date object
   const time = new Date()
@@ -19,12 +20,13 @@ export const NoteForm = () => {
   const handleChange = (e:any) => {
     e.preventDefault();
     setNoteId(id)
-    
+    console.log(noteBgColor)
     addNote({
       id: noteId,
       title: noteTitle,
       category: noteCategory,
       content: noteContent,
+      bgColor: noteBgColor,
       createdAt: `${dateFormat} at ${timeFormat}`
     })
     console.log(notes)
@@ -38,32 +40,54 @@ export const NoteForm = () => {
 
 
       <form action="" onSubmit={handleChange} className='bg-white shadow-2xl w-[80%] min-h-[80%] mx-auto p-4 rounded-md'>
-        <label htmlFor="" className="block py-4 text-gray-700">Category</label>
-        <select name="categories" id="" onChange={(e) => setNoteCategory(e.target.value)}>
-          <option value="">Please Select Category</option>
-          <option value="Personal">Personal</option>
-          <option value="Work">Work</option>
-          <option value="Family">Family</option>
-          <option value="Study">Study</option>
-        </select>
+        <div className="flex justify-between w-full px-4 items-center">
+          <div className="block">
+            <select className='text-xs text-gray-400' name="categories" id="" onChange={(e) => setNoteCategory(e.target.value)}>
+              <option value="">Select Category</option>
+              <option value="Personal">Personal</option>
+              <option value="Work">Work</option>
+              <option value="Family">Family</option>
+              <option value="Study">Study</option>
+            </select>
+          </div>
+          <div className="flex gap-2">
+            {/* {['bg-black', 'bg-purple-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-red-500'].map((color, index) => (
+              <div key={index} className={`w-4 h-4 rounded-full cursor-pointer ${color}`}
+                  onClick={() => setNoteBgColor(color)}
+              ></div>
+            ))} */}
+
+
+            <label htmlFor="bgColor" className='text-xs text-gray-400'>Background Color</label>
+            <input type="color" name="bgColor" id="bgColor" value={noteBgColor} 
+                   onChange={(e) => setNoteBgColor(e.target.value)} 
+                   className='w-6 h-6 rounded-[50%] cursor-pointer' />
+          </div>
+        </div>
+          
+          
+    
         
-        <label htmlFor="" className="block text-xl py-4 text-gray-700" >Title</label>
+        <label htmlFor="" className="text-sm block py-2 text-gray-700" >Title</label>
         <input type="text" name='title' required
-              className="w-full p-2 text-sm border-[1px] border-gray-300 outline-none" value={noteTitle} 
+              className="w-full p-2 rounded-sm text-sm border-[1px] border-gray-300 outline-none" value={noteTitle} 
               onChange={(e) => setNoteTitle(e.target.value)} placeholder='Title' 
         />
 
-        <label htmlFor="" className="block text-xl py-4 text-gray-700">Notes</label>
+        <label htmlFor="" className="block text-xs py-2 text-gray-700">Notes</label>
         <textarea name="notes" id="" rows={10} required
-                  className='text-sm w-full border-[1px] border-gray-300 outline-none p-2 placeholder:text-gray-300' 
+                  className={`${noteBgColor} text-sm rounded-sm w-full border-[1px] border-gray-300 outline-none p-2 placeholder:text-gray-300 `}
                   placeholder='Write your idea here...'
                   onChange={(e) => setNoteContent(e.target.value)}
+                  style={{ backgroundColor: noteBgColor }}
                 >
                   
         </textarea>
 
         <div className="flex items-end gap-5">
-          <button className="text-black bg-gray-100 px-3 py-2 rounded-sm cursor-pointer text-sm">Close</button>
+          <Link to={`/`} >
+            <button className="text-black bg-gray-100 px-3 py-2 rounded-sm cursor-pointer text-sm">Close</button>
+          </Link>
           <button className="text-white bg-purple-500 px-4 py-2 rounded-sm cursor-pointer text-sm">Add Note</button>
         </div>
       </form>

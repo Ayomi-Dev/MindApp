@@ -14,12 +14,8 @@ export const NotePage = () => {
         navigate('/')
       }, 1000)
   }
-  const date = new Date()
-  const dateFormat = date.toDateString()
-  const time = new Date()
-  const format = time.toLocaleTimeString('en-US', {
-    hour12: true})
-  console.log(format, dateFormat)
+  
+
   return (
     <>
         <section className="flex-1 px-4 text-center">
