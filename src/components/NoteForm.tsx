@@ -17,7 +17,7 @@ export const NoteForm = () => {
 
   const navigate = useNavigate()
 
-  const handleChange = (e:any) => {
+  const handleChange = (e:React.FormEvent) => {
     e.preventDefault();
     setNoteId(id)
     console.log(noteBgColor)
@@ -36,7 +36,7 @@ export const NoteForm = () => {
     }, 1000)
   }
   return (
-    <div className="block w-full h-full">
+      <div className="block w-full h-full">
       <h2 className="text-center font-bold text-2xl py-4">Add Notes or Document</h2>
 
 
@@ -52,20 +52,14 @@ export const NoteForm = () => {
             </select>
           </div>
           <div className="flex gap-2">
-            {/* {['bg-black', 'bg-purple-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-red-500'].map((color, index) => (
+            {['bg-black', 'bg-purple-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-red-500'].map((color, index) => (
               <div key={index} className={`w-4 h-4 rounded-full cursor-pointer ${color}`}
                   onClick={() => setNoteBgColor(color)}
               ></div>
-            ))} */}
-
-
-            <label htmlFor="bgColor" className='text-xs text-gray-400'>Background Color</label>
-            <input type="color" name="bgColor" id="bgColor" value={noteBgColor} 
-                   onChange={(e) => setNoteBgColor(e.target.value)} 
-                   className='w-6 h-6 rounded-[50%] cursor-pointer' />
+            ))}
           </div>
         </div>
-        
+
         <label htmlFor="" className="text-sm block py-2 text-gray-700" >Title</label>
         <input type="text" name='title' required
               className="w-full p-2 rounded-sm text-sm border-[1px] border-gray-300 outline-none" value={noteTitle} 
@@ -77,7 +71,7 @@ export const NoteForm = () => {
                   className={`${noteBgColor} text-sm rounded-sm w-full border-[1px] border-gray-300 outline-none p-2 placeholder:text-gray-300 `}
                   placeholder='Write your idea here...'
                   onChange={(e) => setNoteContent(e.target.value)}
-                  style={{ backgroundColor: noteBgColor }}
+                  // style={{ backgroundColor: noteBgColor }}
                 >
                   
         </textarea>
@@ -86,9 +80,9 @@ export const NoteForm = () => {
           <Link to={`/`} >
             <button className="text-black bg-gray-100 px-3 py-2 rounded-sm cursor-pointer text-sm">Close</button>
           </Link>
-          <button className="text-white bg-purple-500 px-4 py-2 rounded-sm cursor-pointer text-sm">Add Note</button>
+          <button className="text-white bg-green-400 transition-all hover:bg-green-500 px-4 py-2 rounded-sm cursor-pointer text-sm">Add Note</button>
         </div>
       </form>
-    </div>
+      </div>
   )
 }

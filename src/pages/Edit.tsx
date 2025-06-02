@@ -11,11 +11,11 @@ export const Edit = () => {
   const [ noteTitle, setNoteTitle ] = useState('');
   const [ noteContent, setNoteContent ] = useState('');
   const [ noteCategory, setNoteCategory ] = useState('');
-  const [ noteBgColor, setNoteBgColor ] = useState<string>('#ffffff');
+  const [ noteBgColor, setNoteBgColor ] = useState<string>(''); // Default to white if bgColor is not set
   const date = new Date()
   const dateFormat = date.toDateString() // extracts date from the date object
   const time = new Date()
-  const timeFormat = time.toLocaleTimeString('en-US', {hour12: true}) // changing time to 12hr format
+  const timeFormat = time.toLocaleTimeString('en-US', {hour12: true}) // changes time to 12hr format
  
 
   useEffect(() => { // Populate the form fields with the note data if it exists
@@ -29,7 +29,7 @@ export const Edit = () => {
   }, [noteToEdit])
 
 
-  const handleUpdate = (e:any) => {
+  const handleUpdate = (e:React.FormEvent) => {
     e.preventDefault();
     
     if(noteToEdit){
@@ -42,13 +42,13 @@ export const Edit = () => {
         updatedAt: `${dateFormat} at ${timeFormat}`
       })
     }
-    console.log(notes)
+
     setTimeout(() => {
       navigate('/')
     }, 1000)
   }
   return (
-    <div className="block w-full h-full">
+    <div className="block flex-1">
       <h2 className="text-center font-bold text-2xl py-4">Edit Your Notes</h2>
 
 
@@ -64,19 +64,11 @@ export const Edit = () => {
             </select>
           </div>
           <div className="flex gap-2">
-            {/* {['bg-black', 'bg-purple-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-red-500'].map((color, index) => (
-              <div key={index} className={`w-4 h-4 rounded-full cursor-pointer ${color}`}
-                  onClick={() => setNoteBgColor(color)}
-              ></div>
-            ))} */}
-
-
             <label htmlFor="bgColor" className='text-xs text-gray-400'>Background Color</label>
             <input type="color" name="bgColor" id="bgColor" value={noteTitle} 
-                   onChange={(e) => setNoteBgColor(e.target.value)} 
-                   className='w-6 h-6 rounded-[50%] cursor-pointer'
-                   
-                   />
+              onChange={(e) => setNoteBgColor(e.target.value)} 
+              className='w-6 h-6 rounded-[50%] cursor-pointer'  
+            />
           </div>
         </div>
           

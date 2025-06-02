@@ -17,6 +17,8 @@ interface NoteContextType {
   addNote: (note: Note) => void;
   updateNote: (id: number, updatedNote: Partial<Note>) => void;
   deleteNote: (id: number) => void;
+  searchResults: Note[];
+  setSerachResults: (notes: Note[]) => void;
 }
 
 // Creates the context with a default value
@@ -25,6 +27,7 @@ const NoteContext = createContext<NoteContextType | undefined>(undefined);
 // Creates a provider component
 export const NoteProvider = ({children}: {children: ReactNode}) => {
   const [notes, setNotes] = useState<Note[]>([]);
+  const [searchResults, setSerachResults] = useState<Note[]>([]);
 
   const addNote = (note: Note) => {
     setNotes(prevNotes => [...prevNotes, note]);
@@ -43,7 +46,7 @@ export const NoteProvider = ({children}: {children: ReactNode}) => {
     setNotes(notes.filter(note => note.id !== id));
   }
   return(
-    <NoteContext.Provider value = {{notes, addNote, updateNote, deleteNote}} >
+    <NoteContext.Provider value = {{notes, addNote, updateNote, deleteNote, searchResults, setSerachResults}} >
         { children }
     </NoteContext.Provider>
   )

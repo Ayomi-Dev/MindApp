@@ -1,13 +1,13 @@
-import React from 'react'
+
 import { NoteForm } from '../components/NoteForm'
+import { PageWrapper } from '../components/PageWrapper'
 
 
 export const Create = () => {
 
   return (
-    <div className="flex-1 py-4">
-
+    <PageWrapper>
       <NoteForm />
-    </div>
+    </PageWrapper>
   )
 }
