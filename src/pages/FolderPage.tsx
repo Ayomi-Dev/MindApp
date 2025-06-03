@@ -1,10 +1,10 @@
-import React from 'react'
 import { useFolderContext } from '../context/FolderContext'
 import { Link, useParams } from 'react-router-dom'
 import { useNoteContext } from '../context/NoteContext'
+import { MdDelete } from 'react-icons/md'
 
 export const FolderPage = () => {
-    const { folders } = useFolderContext()
+    const { folders, removeNoteFromFolder } = useFolderContext()
     const { notes } = useNoteContext()
     const { id } = useParams()
     const currentFolder = folders.find(folder => folder.id.toString() === id)
@@ -28,6 +28,7 @@ export const FolderPage = () => {
                       <h3 className='font-semibold text-sm'>{note.title}</h3>
                       <p className='text-xs text-black'>{note.content.slice(0,4)}...</p>
                     </Link>
+                    <MdDelete className='text-2xl' onClick={() => removeNoteFromFolder(currentFolder.id, note.id)} />
                   </li>
                 ))}
               </ul>

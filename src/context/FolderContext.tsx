@@ -14,8 +14,9 @@ export interface Folder {
 interface FolderContextType{
     folders: Folder[];
     createFolder: (folder: Folder) => void;
-    // deleteFolder: (id: number) => void;
+    deleteFolder: (id: number) => void;
     addNoteToFolder: (folderId: number, noteId: number) => void;
+    removeNoteFromFolder: (folderId: number, noteId: number) => void;
 }
 
 const FolderContext = createContext<FolderContextType | undefined>(undefined);
@@ -28,23 +29,35 @@ export const FolderProvider = ({children}: {children : ReactNode}) => {
         setFolders(prevfolder => [...prevfolder, folder])
     }
     const addNoteToFolder = (folderID: number, noteID: number) => {
-        setFolders(prevFolders =>
-            prevFolders.map(folder =>
-            folder.id === folderID
+        setFolders(prevFolders =>  //calls the setFunction with the current array of folders in it
+            prevFolders.map(folder => //cycle through each folder in the array
+            folder.id === folderID //Checks if id of selected folder passed in matches any id of the current folder in the list 
             ? 
             {
                 ...folder,
-                 noteIds: folder.noteIds.includes(noteID)
-                ? folder.noteIds
-                : [...folder.noteIds, noteID],
+                 noteIds: folder.noteIds.includes(noteID) //checks if the id of the note passed in already exist in
+                ? folder.noteIds                          //the noteIds property of the folder to avoid duplicates
+                : [...folder.noteIds, noteID], //if it does, it returns the noteIds without any update but if not, it returns the noteIds with the id passed in
             }
             :
+            folder //returns the folder without any update
+        )
+    )}
+    const deleteFolder = (id: number) => {
+        setFolders(folders.filter(folder => folder.id !== id))
+    }
+
+    const removeNoteFromFolder = (folderID: number, noteID:number) => {
+        setFolders(folders.map(folder => 
+            folder.id === folderID
+            ?
+            {...folder, noteIds:folder.noteIds.filter(id => id !== noteID)}
+            :
             folder
-    )
-  );
+        ))
     }
     return (
-        <FolderContext.Provider value= {{folders, createFolder, addNoteToFolder} }>
+        <FolderContext.Provider value= {{folders, createFolder, addNoteToFolder, deleteFolder, removeNoteFromFolder} }>
             {children}
         </FolderContext.Provider>
     )
