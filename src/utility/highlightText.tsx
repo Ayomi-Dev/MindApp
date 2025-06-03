@@ -7,7 +7,6 @@ export const highlightText = (text: string, query: string): ReactNode => {
   const regex = new RegExp(`(${escapedQuery})`, 'gi');
 
   const parts = text.split(regex);
-
   return (
     <>
       {parts.map((part, index) =>

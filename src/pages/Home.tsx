@@ -1,9 +1,12 @@
 import { MdFolder} from 'react-icons/md'
 import {  FaFolderOpen, FaNoteSticky } from 'react-icons/fa6'
 import { NoteCard } from '../components/NoteCard'
+import { useFolderContext } from '../context/FolderContext';
+import { FolderCard } from '../components/FolderCard';
 
 export const Home = () => {
- 
+  const { folders } = useFolderContext();
+
   return (
     <main className="flex-1 px-4">
       <section className="w-full p-5">
@@ -16,22 +19,10 @@ export const Home = () => {
         
         <div className="folder-cards flex">
           <div className="grid w-[80%] md:grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] py-4 gap-4">
-            <div className="bg-blue-200 rounded-xl p-3">
-              <FaFolderOpen className='text-[4.5rem] py-2 text-violet-400' />
-              <h3 className="text-black mt-6">Movie Review</h3>
-              <span className='text-gray-600 text-xs py-2'>25/05/2025</span>
-            </div>
-            <div className="bg-red-300 rounded-xl p-3">
-              <FaFolderOpen className='text-[4.5rem] py-3 text-amber-800' />
-              <h3 className="text-black mt-6">Movie Review</h3>
-              <span className='text-gray-600 text-xs py-2'>25/05/2025</span>
-            </div>
-            <div className="bg-amber-100 rounded-xl p-3">
-              <FaFolderOpen className='text-[4.5rem] py-3 text-amber-400' />
-              <h3 className="text-black mt-6">Movie Review</h3>
-              <span className='text-gray-600 text-xs py-2'>25/05/2025</span>
-            </div>
-                                    
+          {folders.map((folder) => {
+            return <FolderCard key={folder.id} folder={folder} />
+          })}
+                        
           </div>
           <MdFolder className='text-[3rem] text-red-400' />
         </div>

@@ -25,17 +25,20 @@ export const Sidebar = () => {
               </li>
             </Link>
 
-            <Link to="/create">
+            <Link to="/new-note">
               <li className="flex items-center gap-3 text-sm py-1">
 
                 <FaNoteSticky className=' text-black' />
                 <span>New Note</span>
               </li>
             </Link>
-            <li className="flex items-center gap-3 text-sm py-1">
-              <FaTrash className='' />
-              <span>Trash</span>
-            </li>
+
+            <Link to="/new-folder">
+              <li className="flex items-center gap-3 text-sm py-1">
+                <FaTrash className='' />
+                <span>New Folder</span>
+              </li>
+            </Link>
         </ul>
       </div>
 
