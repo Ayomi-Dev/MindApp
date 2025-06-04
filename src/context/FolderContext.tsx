@@ -1,4 +1,4 @@
-import {type ReactNode, createContext, useContext, useState } from "react";
+import {type ReactNode, createContext, useContext, useEffect, useState } from "react";
 
 
 
@@ -22,10 +22,15 @@ interface FolderContextType{
 const FolderContext = createContext<FolderContextType | undefined>(undefined);
 
 export const FolderProvider = ({children}: {children : ReactNode}) => {
-    const [folders, setFolders] = useState<Folder[]>([]);
+    const [folders, setFolders] = useState<Folder[]>(() => {
+
+    const stored = localStorage.getItem("folders");
+    return stored ? JSON.parse(stored) : [];
+});
+    
+   
 
     const createFolder = (folder: Folder) => {
-
         setFolders(prevfolder => [...prevfolder, folder])
     }
     const addNoteToFolder = (folderID: number, noteID: number) => {
@@ -34,10 +39,10 @@ export const FolderProvider = ({children}: {children : ReactNode}) => {
             folder.id === folderID //Checks if id of selected folder passed in matches any id of the current folder in the list 
             ? 
             {
-                ...folder,
-                 noteIds: folder.noteIds.includes(noteID) //checks if the id of the note passed in already exist in
-                ? folder.noteIds                          //the noteIds property of the folder to avoid duplicates
-                : [...folder.noteIds, noteID], //if it does, it returns the noteIds without any update but if not, it returns the noteIds with the id passed in
+                ...folder, //keeps a copy of the current folder and its existing properties
+                 noteIds: folder.noteIds.includes(noteID) //checks if the id of the note passed in already exist in the noteIds property of the folder to avoid duplicates
+                ? folder.noteIds                  //if it does, it returns the noteIds without any update 
+                : [...folder.noteIds, noteID],     //if not, it returns the noteIds with the id passed in        
             }
             :
             folder //returns the folder without any update
@@ -56,6 +61,11 @@ export const FolderProvider = ({children}: {children : ReactNode}) => {
             folder
         ))
     }
+   
+    useEffect(() => { //persisting data to localStorage
+        localStorage.setItem("folders", JSON.stringify(folders)) // Convert folders to a JSON string and save it to localStorage
+    }, [folders])
+
     return (
         <FolderContext.Provider value= {{folders, createFolder, addNoteToFolder, deleteFolder, removeNoteFromFolder} }>
             {children}

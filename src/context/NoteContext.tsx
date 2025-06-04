@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, type ReactNode } from "react";
+import { createContext, useState, useContext, type ReactNode, useEffect } from "react";
 
 // Define the shape of the note state
 interface Note {
@@ -26,7 +26,13 @@ const NoteContext = createContext<NoteContextType | undefined>(undefined);
 
 // Creates a provider component
 export const NoteProvider = ({children}: {children: ReactNode}) => {
-  const [notes, setNotes] = useState<Note[]>([]);
+  const [notes, setNotes] = useState<Note[]>(() => {
+    // Initialize notes from localStorage or an empty array
+    // This will run only once when the component mounts
+    const storedNotes = localStorage.getItem("notes");
+    return storedNotes ? JSON.parse(storedNotes) : [];
+
+  });
   const [searchResults, setSerachResults] = useState<Note[]>([]);
 
   const addNote = (note: Note) => {
@@ -45,6 +51,13 @@ export const NoteProvider = ({children}: {children: ReactNode}) => {
     // Filter out the note with the given id
     setNotes(notes.filter(note => note.id !== id));
   }
+  useEffect(() => {
+    // Store notes in localStorage whenever they change
+    localStorage.setItem('notes', JSON.stringify(notes))
+  }, [notes]);
+
+
+
   return(
     <NoteContext.Provider value = {{notes, addNote, updateNote, deleteNote, searchResults, setSerachResults}} >
         { children }
