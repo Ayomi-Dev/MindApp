@@ -19,7 +19,8 @@ export const FolderForm = () => {
             title: folderTitle,
             createdAt: new Date().toLocaleDateString(),
             bgColor: folderBgColor,
-            noteIds: []
+            noteIds: [],
+            timestamp: Date.now(),
         };
         createFolder(newFolder);
         setFolderTitle('');

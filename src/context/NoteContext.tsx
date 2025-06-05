@@ -8,9 +8,10 @@ interface Note {
   content: string,
   bgColor?: string,
   createdAt: string,
-  updatedAt?: string
+  updatedAt?: string,
+  timestamp: number,
 }
-
+type TimeRange = "today" | "thisweek" | "thismonth" | "all";
 //Define the context with the shape of the note state
 interface NoteContextType {
   notes: Note[];
@@ -19,6 +20,9 @@ interface NoteContextType {
   deleteNote: (id: number) => void;
   searchResults: Note[];
   setSerachResults: (notes: Note[]) => void;
+  timeFilter?: TimeRange;
+  setTimeFilter?: (range: TimeRange) => void;
+  filteredNotes: (range: TimeRange) => void;
 }
 
 // Creates the context with a default value
@@ -34,6 +38,32 @@ export const NoteProvider = ({children}: {children: ReactNode}) => {
 
   });
   const [searchResults, setSerachResults] = useState<Note[]>([]);
+  const [timeFilter, setTimeFilter] = useState<TimeRange>("all");
+
+  const getHours = (timestamp: number) => {
+    const now = Date.now();
+    const timeDifference = now - timestamp
+    return Math.floor(timeDifference / (1000 * 60 * 60)); // Convert milliseconds to hours
+  }
+  const filteredNotes = (range: TimeRange) => { //filters notes based on the selected time range
+
+    notes.filter(note => {
+      const hoursAgo = getHours(note.timestamp)
+      switch (range) {
+        case "today":
+          return hoursAgo < 24; // Less than 24 hours ago
+        case "thisweek":
+          return hoursAgo < 24 * 7; // Less than 7 days ago
+        case "thismonth":
+          return hoursAgo < 24 * 30; // Less than 30 days ago
+        case "all":
+          return true; // All notes
+        default:
+          return false; // No match
+      }
+    })
+    setTimeFilter(range as  TimeRange)
+  }
 
   const addNote = (note: Note) => {
     setNotes(prevNotes => [...prevNotes, note]);
@@ -59,7 +89,7 @@ export const NoteProvider = ({children}: {children: ReactNode}) => {
 
 
   return(
-    <NoteContext.Provider value = {{notes, addNote, updateNote, deleteNote, searchResults, setSerachResults}} >
+    <NoteContext.Provider value = {{notes, addNote, updateNote, deleteNote, searchResults, setSerachResults, timeFilter, filteredNotes}} >
         { children }
     </NoteContext.Provider>
   )
