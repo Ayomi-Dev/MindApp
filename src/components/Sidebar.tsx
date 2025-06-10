@@ -1,10 +1,15 @@
 import Img from '../assets/img.jpg'
-import { FaNoteSticky, FaTrash } from 'react-icons/fa6'
+import { FaFolder } from 'react-icons/fa6'
 import { MdNoteAdd } from 'react-icons/md'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { FaHome } from 'react-icons/fa'
 
 export const Sidebar = () => {
+  const location = useLocation()
+
+  const isActive = (path: string) => {
+    return location.pathname === path 
+  }
   return (
     <div className="hidden sticky left-0 top-0 h-screen sm:flex justify-between flex-col items-center w-[25%] sm:w-[20%] md:w-[15%] py-4 bg-white">
       <div className="py-2 w-[80%] mx-auto">
@@ -18,24 +23,24 @@ export const Sidebar = () => {
           <span className="bg-red-500 rounded-full w-5 h-5"></span>
         </div>
         <ul className="block w-[80%] mx-auto justify-center items-center text-gray-400 py-2">
-            <Link to="/">
-              <li className="flex items-center gap-3 text-sm py-1">
-                <FaHome className=' text-black' />
+            <Link to={"/"}>
+              <li className={`flex items-center gap-3 text-sm py-1 ${isActive('/') ? 'text-black font-semibold' : ''}`}>
+                <FaHome className='' />
                 <span>Home</span>
               </li>
             </Link>
 
             <Link to="/new-note">
-              <li className="flex items-center gap-3 text-sm py-1">
+              <li className={`flex items-center gap-3 text-sm py-1 ${isActive('/new-note') ? 'text-black font-semibold' : ''}`}>
 
-                <FaNoteSticky className=' text-black' />
+                <MdNoteAdd />
                 <span>New Note</span>
               </li>
             </Link>
 
             <Link to="/new-folder">
-              <li className="flex items-center gap-3 text-sm py-1">
-                <FaTrash className='' />
+              <li className={`flex items-center gap-3 text-sm py-1 ${isActive('/new-folder') ? 'text-black' : ''}`}>
+                <FaFolder />
                 <span>New Folder</span>
               </li>
             </Link>
@@ -43,8 +48,10 @@ export const Sidebar = () => {
       </div>
 
       <div className="w-[80%] mx-auto text-center">
-        <p className='text-[.5rem] sm:text-xs text-gray-400 pb-4 overflow-hidden'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-          Molestias laboriosam quasi consequatur culpa omnis! Labore 
+        <p className='text-[.5rem] text-gray-400 pb-4 overflow-hidden'>Stay organized, stay creative.
+          Our Notes App is your personal space to capture thoughts, tasks, and ideas — anytime, anywhere. 
+          Whether you're jotting down meeting notes, planning a project, or writing your next big idea, our intuitive 
+          and minimal interface makes note-taking fast and distraction-free.
         </p>
         <div className="max-w-[150px] h-[150px] mx-auto py-3">
           <img src={Img} alt="Promo" className='w-full object-cover h-full rounded-sm' />

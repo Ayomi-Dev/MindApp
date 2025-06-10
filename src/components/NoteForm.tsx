@@ -3,7 +3,7 @@ import { useNoteContext } from '../context/NoteContext'
 import { Link, useNavigate } from 'react-router-dom';
 
 export const NoteForm = () => {
-  const {notes,  addNote } = useNoteContext();
+  const { addNote } = useNoteContext();
   const [ noteTitle, setNoteTitle ] = useState('');
   const [ noteContent, setNoteContent ] = useState('');
   const [ noteCategory, setNoteCategory ] = useState('');
@@ -20,17 +20,16 @@ export const NoteForm = () => {
   const handleChange = (e:React.FormEvent) => {
     e.preventDefault();
     setNoteId(id)
-    console.log(noteBgColor)
     addNote({
-      id: noteId,
+      id: Date.now(),
       title: noteTitle,
       category: noteCategory,
       content: noteContent,
       bgColor: noteBgColor,
       createdAt: `${dateFormat} at ${timeFormat}`,
-      updatedAt: ''
+      updatedAt: '',
+      timestamp: noteId
     })
-    console.log(notes)
     setTimeout(() => {
       navigate('/')
     }, 1000)

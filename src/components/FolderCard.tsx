@@ -14,7 +14,10 @@ export const FolderCard: FC<FolderCardProps> = ({folder}) => {
   const {deleteFolder} = useFolderContext()
   return (
     <>
-      <div className={`${folder.bgColor} cursor-pointer rounded-xl p-4`}>
+      <div className={`${folder.bgColor} shadow-lg cursor-pointer relative rounded-xl p-4`}>
+        <div className="absolute w-[20px] h-[20px] right-0 top-[-10px] flex justify-center items-center rounded-full bg-red-400 text-white font-bold">
+          <span>{folder.noteIds.length}</span>
+        </div>
         <Link to={`/folder/${folder.id}`}>
               <FaFolder className='text-[3rem] text-white text-xl font-light py-4' />
               <h3 className="text-white font-bold text-2xl mt-6">{folder.title}</h3>

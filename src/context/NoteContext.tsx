@@ -11,7 +11,7 @@ interface Note {
   updatedAt?: string,
   timestamp: number,
 }
-type TimeRange = "today" | "thisweek" | "thismonth" | "all";
+type TimeRange = "all" | "last24hr" | "thisweek" | "thismonth";
 //Define the context with the shape of the note state
 interface NoteContextType {
   notes: Note[];
@@ -20,14 +20,14 @@ interface NoteContextType {
   deleteNote: (id: number) => void;
   searchResults: Note[];
   setSerachResults: (notes: Note[]) => void;
-  timeFilter?: TimeRange;
-  setTimeFilter?: (range: TimeRange) => void;
-  filteredNotes: (range: TimeRange) => void;
+  noteTimeFilter: TimeRange;
+  setNoteTimeFilter: (range: TimeRange) => void;
+  handleFilter: (range: TimeRange) => void;
+  notesToFilter: Note[]
 }
 
 // Creates the context with a default value
 const NoteContext = createContext<NoteContextType | undefined>(undefined);
-
 // Creates a provider component
 export const NoteProvider = ({children}: {children: ReactNode}) => {
   const [notes, setNotes] = useState<Note[]>(() => {
@@ -38,35 +38,48 @@ export const NoteProvider = ({children}: {children: ReactNode}) => {
 
   });
   const [searchResults, setSerachResults] = useState<Note[]>([]);
-  const [timeFilter, setTimeFilter] = useState<TimeRange>("all");
+  const [noteTimeFilter, setNoteTimeFilter] = useState<TimeRange>('all');
+  const [notesToFilter, setNotesToFilter] = useState(notes) // Initialize with an empty array to store
+  
+  useEffect(()=> {
+    const savedFilter = localStorage.getItem('noteTimeFilter') as TimeRange
+    if(savedFilter){
+      handleFilter(savedFilter)
+    }
+  }, [])
 
-  const getHours = (timestamp: number) => {
+
+  const handleFilter = (range: TimeRange) => { //filters notes based on the selected time range
+    if (range === "all") {
+      setNoteTimeFilter(range);
+      setNotesToFilter(notes); // reset to full list
+      return;
+    }
     const now = Date.now();
-    const timeDifference = now - timestamp
-    return Math.floor(timeDifference / (1000 * 60 * 60)); // Convert milliseconds to hours
-  }
-  const filteredNotes = (range: TimeRange) => { //filters notes based on the selected time range
-
-    notes.filter(note => {
-      const hoursAgo = getHours(note.timestamp)
+    const oneDay = 24 * 60 * 60 * 1000; // One day in milliseconds
+    const oneWeek = 7 * oneDay; // One week in milliseconds
+    const oneMonth = 30 * oneDay; // One month in milliseconds
+    const filteredNotes =  notes.filter(note => {
+      const timeDifference = now - note.timestamp
       switch (range) {
-        case "today":
-          return hoursAgo < 24; // Less than 24 hours ago
+        case "last24hr":
+         return timeDifference <= oneDay; // Less than 24 hours ago
         case "thisweek":
-          return hoursAgo < 24 * 7; // Less than 7 days ago
+          return timeDifference > oneDay && timeDifference <= oneWeek; // Less than 7 days ago but more than 24 hours ago
         case "thismonth":
-          return hoursAgo < 24 * 30; // Less than 30 days ago
-        case "all":
-          return true; // All notes
+          return timeDifference > oneWeek && timeDifference <= oneMonth ; // Less than 30 days ago but more than 7 days ago 
         default:
           return false; // No match
-      }
-    })
-    setTimeFilter(range as  TimeRange)
+        }
+      })
+      setNoteTimeFilter(range as typeof noteTimeFilter)
+      setNotesToFilter(filteredNotes);
+      localStorage.setItem('noteTimeFilter', range) // Store the selected time filter in localStorage so that it persists across page reloads
   }
 
   const addNote = (note: Note) => {
     setNotes(prevNotes => [...prevNotes, note]);
+    // setNotesToFilter(filter => [...filter, note]);
   };
 
   const updateNote = (id: number, updatedNote:Partial<Note>) => {
@@ -83,13 +96,15 @@ export const NoteProvider = ({children}: {children: ReactNode}) => {
   }
   useEffect(() => {
     // Store notes in localStorage whenever they change
-    localStorage.setItem('notes', JSON.stringify(notes))
+    localStorage.setItem('notes', JSON.stringify(notes)) // Convert notes to a JSON string and save it to localStorage
+    localStorage.setItem('notesToFilter', JSON.stringify(notesToFilter)) // Store filtered notes in localStorage so that it persists across page reloads
+    setNotesToFilter(notes) // Update notesToFilter whenever notes change
   }, [notes]);
 
 
 
   return(
-    <NoteContext.Provider value = {{notes, addNote, updateNote, deleteNote, searchResults, setSerachResults, timeFilter, filteredNotes}} >
+    <NoteContext.Provider value = {{notes, notesToFilter, addNote, updateNote, deleteNote, searchResults, setSerachResults, noteTimeFilter, setNoteTimeFilter, handleFilter}} >
         { children }
     </NoteContext.Provider>
   )

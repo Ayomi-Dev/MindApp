@@ -16,7 +16,7 @@ function App() {
   const location = useLocation()
   return(
     <AnimatePresence mode="wait" initial={false}>
-        <div className="min-h-screen bg-gray-100 w-full">
+        <div className="min-h-screen bg-gray-200 w-full">
           <Topbar />
           <div className="flex gap-2">
             <Sidebar />

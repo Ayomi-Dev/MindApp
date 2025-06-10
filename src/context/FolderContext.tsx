@@ -10,27 +10,30 @@ export interface Folder {
     noteIds: number[];
 }
 
-type Range = "today" | "thisweek" | "thismonth" | "all";
+type Range = "last24hr" | "thisweek" | "thismonth" | "all";
 interface FolderContextType{
     folders: Folder[];
     createFolder: (folder: Folder) => void;
     deleteFolder: (id: number) => void;
     addNoteToFolder: (folderId: number, noteId: number) => void;
     removeNoteFromFolder: (folderId: number, noteId: number) => void;
-    filteredFolders: (range: Range ) => void;
+    handleFolderFilter: (range: Range ) => void;
     timeFilter: Range;
-    setTimeFilter: (range: Range) => void;
+    filterData : Folder[]; // This will hold the filtered folders based on the time range
+
 }
 
 const FolderContext = createContext<FolderContextType | undefined>(undefined);
 
 export const FolderProvider = ({children}: {children : ReactNode}) => {
-    const [folders, setFolders] = useState<Folder[]>(() => {
+    const [folders, setFolders] = useState<Folder[]>(() => { //persist the folders data from the local storage
 
-    const stored = localStorage.getItem("folders");
-    return stored ? JSON.parse(stored) : [];
+        const stored = localStorage.getItem("folders");
+        return stored ? JSON.parse(stored) : [];
     });
-    
+
+    const [timeFilter, setTimeFilter] = useState<Range>("all")
+    const [filterData, setFilterData] = useState(folders) // Initialize filterData with the current folders;
    
 
     const createFolder = (folder: Folder) => {
@@ -55,7 +58,7 @@ export const FolderProvider = ({children}: {children : ReactNode}) => {
         setFolders(folders.filter(folder => folder.id !== id))
     }
 
-    const removeNoteFromFolder = (folderID: number, noteID:number) => {
+    const removeNoteFromFolder = (folderID: number, noteID:number) => { //removes selected note from selected folder
         setFolders(folders.map(folder => 
             folder.id === folderID
             ?
@@ -64,40 +67,51 @@ export const FolderProvider = ({children}: {children : ReactNode}) => {
             folder
         ))
     }
-    const getHours  = (timestamp: number) => {
-        const now = Date.now(); //extracts the current time in milliseconds
-        const timeDifference = now - timestamp //calculates the difference between the current time and the timestamp of the folder
-        return Math.floor(timeDifference / (1000 * 60 * 60)); // Convert milliseconds to hours
-    }
 
-    // Function to filter folders based on the selected range
-    const [timeFilter, setTimeFilter] = useState<Range>("all");
-    const filteredFolders = (range: Range) => {
-        folders.filter(folder => {
-                const timeAgo = getHours(folder.timestamp);
+    useEffect(()=> { // This effect runs once when the component mounts to check for a saved time filter in localStorage
+        const savedFilter = localStorage.getItem('timeFilter') as Range
+        if(savedFilter){
+          handleFolderFilter(savedFilter)
+        }
+    }, [])
 
-                if(range === "today"){
-                    return timeAgo <= 24; // 24 hours in a day
+    
+    const handleFolderFilter = (range: Range) => {  // Function to filter folders based on the selected range
+        if (range === "all") {
+            setTimeFilter(range);
+            setFilterData(folders); // reset to full list
+            return;
+        }
+        const now = Date.now();
+        const oneDay = 24 * 60 * 60 * 1000 ; //24hrs converted to milliseconds
+        const oneWeek = 7 * oneDay;  // One week in milliseconds
+        const oneMonth = 30 * oneDay; // One month in milliseconds
+        const filteredFolders = folders.filter(folder => { 
+                const timeAgo = now - folder.timestamp; // Calculate the time difference between now and the folder's timestamp
+                if(range === "last24hr" ) { // checks if the folder was created within the last 24 hours
+                    return timeAgo <= oneDay; // Check if the folder was created within the last 24 hours
                 }
-                else if(range === "thisweek") {
-                    return timeAgo <= 24 * 7; // 7 days in hours
+                if(range === "thisweek" ) { // If the range is "thisweek", check if the folder was created within the last 7 days
+                    return timeAgo > oneDay && timeAgo <= oneWeek
                 }
-                else if(range === "thismonth") {
-                    return timeAgo <= 24 * 30; // 30 days in hours
-                }
-                else{
-                    return true; // If no range is specified, return all folders
+                if(range === "thismonth" ) { // If the range is "thismonth", checks if the folder was created within the last 30 days
+                   
+                    return timeAgo > oneWeek && timeAgo <= oneMonth; // Checks if the folder was created within the last 30 days
                 }
             })
-        setTimeFilter(range as Range); // Update the time filter state
+        setTimeFilter(range as typeof timeFilter); // Update the time filter state
+        setFilterData(filteredFolders)
+        localStorage.setItem('timeFilter', range) // Store the selected time filter in localStorage
     }
     
     useEffect(() => { //persisting data to localStorage
         localStorage.setItem("folders", JSON.stringify(folders)) // Convert folders to a JSON string and save it to localStorage
+        localStorage.setItem("filterData", JSON.stringify(filterData)) // Store filtered folders in localStorage so that it persists across page reloads
+        setFilterData(folders) // Update filterData whenever folders change 
     }, [folders])
 
     return (
-        <FolderContext.Provider value= {{folders, createFolder, addNoteToFolder, deleteFolder, removeNoteFromFolder, filteredFolders, timeFilter, setTimeFilter} }>
+        <FolderContext.Provider value= {{folders, createFolder, addNoteToFolder, deleteFolder, removeNoteFromFolder, handleFolderFilter, timeFilter, filterData} }>
             {children}
         </FolderContext.Provider>
     )

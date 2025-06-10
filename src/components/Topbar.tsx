@@ -13,7 +13,7 @@ export const Topbar = () => {
 
       <div className="px-2 w-[30%] ">
         <a href="" className="md:text-3xl text-xl font-semibold text-black">
-          MY NOTES
+          MindPad
         </a>
       </div>
 
@@ -21,7 +21,7 @@ export const Topbar = () => {
 
       <div className="flex justify-end gap-4 w-[20%] mx-auto text-sm md:text-xl items-center justify-self-end">
         <FaUserCircle className="text-black mr-1 " /> 
-        <h3 className="text-black hidden md:block text-sm ">User Info</h3>
+        <h3 className="text-black hidden md:block text-sm ">Ayomide</h3>
         <FaBars className="text-black pl-1" />
       </div>
     </nav>
