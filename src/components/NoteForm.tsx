@@ -1,6 +1,7 @@
 import  { useState } from 'react'
 import { useNoteContext } from '../context/NoteContext'
 import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export const NoteForm = () => {
   const { addNote } = useNoteContext();
@@ -77,8 +78,9 @@ export const NoteForm = () => {
 
         <div className="flex items-end gap-5">
           <Link to={`/`} >
-            <button className="text-black bg-gray-100 px-3 py-2 rounded-sm cursor-pointer text-sm">Close</button>
+            <motion.button whileHover={{scale: 1.1}} className="text-black bg-gray-100 px-3 py-2 rounded-sm cursor-pointer text-sm">Close</motion.button>
           </Link>
+          
           <button className="text-white bg-green-400 transition-all hover:bg-green-500 px-4 py-2 rounded-sm cursor-pointer text-sm">Add Note</button>
         </div>
       </form>

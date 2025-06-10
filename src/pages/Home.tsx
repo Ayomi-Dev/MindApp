@@ -5,6 +5,7 @@ import Folder from '../assets/folder.png'
 import { Link } from 'react-router-dom';
 import { MdNoteAdd } from 'react-icons/md';
 import { useNoteContext } from '../context/NoteContext';
+import { PageWrapper } from '../components/PageWrapper';
 
 export const Home = () => {
   const { handleFolderFilter, timeFilter, filterData} = useFolderContext();
@@ -12,7 +13,9 @@ export const Home = () => {
 
 
   return (
-    <main className="flex-1 px-4">
+    <PageWrapper>
+
+    <main className="w-full h-full px-4">
       <section className="w-full p-5">
         <h2 className="text-xl font-semibold">Recent Folders</h2>
         <div className="w-full flex py-4 text-sm gap-5 text-gray-400">
@@ -60,5 +63,6 @@ export const Home = () => {
         </div>
       </section>
     </main>
+    </PageWrapper>
   )
 }

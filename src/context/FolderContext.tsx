@@ -1,4 +1,5 @@
-import {type ReactNode, createContext, useContext, useEffect, useState } from "react";;
+import {type ReactNode, createContext, useContext, useEffect, useState } from "react";import { toast } from "react-toastify";
+;
 
 export interface Folder {
     id: number;
@@ -38,6 +39,7 @@ export const FolderProvider = ({children}: {children : ReactNode}) => {
 
     const createFolder = (folder: Folder) => {
         setFolders(prevfolder => [...prevfolder, folder])
+        toast.success("Folder created successfully") //shows a success message
     }
     const addNoteToFolder = (folderID: number, noteID: number) => {
         setFolders(prevFolders =>  //calls the setFunction with the current array of folders in it
@@ -52,10 +54,12 @@ export const FolderProvider = ({children}: {children : ReactNode}) => {
             }
             :
             folder //returns the folder without any update
-        )
-    )}
+        ))
+        toast.success("Note added to folder successfully") //shows a success message
+    }
     const deleteFolder = (id: number) => {
         setFolders(folders.filter(folder => folder.id !== id))
+        toast.info("Folder deleted successfully")
     }
 
     const removeNoteFromFolder = (folderID: number, noteID:number) => { //removes selected note from selected folder
@@ -66,6 +70,7 @@ export const FolderProvider = ({children}: {children : ReactNode}) => {
             :
             folder
         ))
+        toast.info("Note removed from folder successfully") //shows a success message
     }
 
     useEffect(()=> { // This effect runs once when the component mounts to check for a saved time filter in localStorage

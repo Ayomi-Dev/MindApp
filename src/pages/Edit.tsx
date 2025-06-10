@@ -1,6 +1,7 @@
 import  { useEffect, useState } from 'react'
 import { useNoteContext } from '../context/NoteContext'
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { PageWrapper } from '../components/PageWrapper';
 
 export const Edit = () => {
   const navigate = useNavigate()
@@ -48,7 +49,8 @@ export const Edit = () => {
     }, 1000)
   }
   return (
-    <div className="block flex-1">
+    <PageWrapper>
+      <div className="block flex-1">
       <h2 className="text-center font-bold text-2xl py-4">Edit Your Notes</h2>
 
 
@@ -99,6 +101,7 @@ export const Edit = () => {
           <button className="text-white bg-purple-500 px-4 py-2 rounded-sm cursor-pointer text-sm">Save</button>
         </div>
       </form>
-    </div>
+      </div>
+    </PageWrapper>
   )
 }

@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, type ReactNode, useEffect } from "react";
+import { toast } from "react-toastify";
 
 // Define the shape of the note state
 interface Note {
@@ -79,7 +80,15 @@ export const NoteProvider = ({children}: {children: ReactNode}) => {
 
   const addNote = (note: Note) => {
     setNotes(prevNotes => [...prevNotes, note]);
-    // setNotesToFilter(filter => [...filter, note]);
+    toast.success("Note added successfully!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   const updateNote = (id: number, updatedNote:Partial<Note>) => {
@@ -88,11 +97,13 @@ export const NoteProvider = ({children}: {children: ReactNode}) => {
         note.id === id ? { ...note, ...updatedNote } : note
       )
     );
+    toast.success("Note updated successfully!")
   }
 
   const deleteNote = (id: number ) => {
     // Filter out the note with the given id
     setNotes(notes.filter(note => note.id !== id));
+    toast.warning("Note deleted successfully!")
   }
   useEffect(() => {
     // Store notes in localStorage whenever they change

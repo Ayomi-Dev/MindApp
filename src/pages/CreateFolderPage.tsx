@@ -1,10 +1,11 @@
 
 import { FolderForm } from '../components/FolderForm'
+import { PageWrapper } from '../components/PageWrapper'
 
 export const CreateFolderPage = () => {
   return (
-    <div className="flex-1">
+    <PageWrapper>
       <FolderForm />
-    </div>
+    </PageWrapper>
   )
 }

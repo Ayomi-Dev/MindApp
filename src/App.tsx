@@ -15,11 +15,11 @@ import { FolderPage } from "./pages/FolderPage";
 function App() {
   const location = useLocation()
   return(
-    <AnimatePresence mode="wait" initial={false}>
-        <div className="min-h-screen bg-gray-200 w-full">
+    <div className="min-h-screen bg-gray-200 w-full">
           <Topbar />
           <div className="flex gap-2">
             <Sidebar />
+          <AnimatePresence mode="wait" initial={false}>
             <Routes location={location} key={location.pathname}>
             
               <Route path="/" element={<Home />} />
@@ -31,9 +31,9 @@ function App() {
               <Route path="/folder/:id" element= {<FolderPage />} />
             
             </Routes>
+          </AnimatePresence>
           </div>
         </div>
-    </AnimatePresence>
   )
 }
 

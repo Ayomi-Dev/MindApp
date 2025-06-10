@@ -3,9 +3,9 @@ import { type ReactNode } from "react"
 
 export const PageWrapper = ({children}: {children: ReactNode}) => {
     const variants = {
-      hidden: { opacity: 0, x: 100 },
-      enter: { opacity: 1, x: 0 },
-      exit: { opacity: 0, x: -100 },
+      hidden: { opacity: 0, y: 20 },
+      enter: { opacity: 1, y: 0 },
+      exit: { opacity: 0, y: -20 },
     };
 
   return (
@@ -15,7 +15,7 @@ export const PageWrapper = ({children}: {children: ReactNode}) => {
       animate="enter"
       exit="exit"
       variants={variants}
-      transition={{ duration: 1, ease: 'easeInOut' }}
+      transition={{ duration: .5, ease: 'easeInOut' }}
     >
       {children}
 
