@@ -31,11 +31,11 @@ export const FolderForm = () => {
         }, 1000);
     }
   return (
-    <div className="block w-full h-full">
+    <div className="block w-full">
       <h2 className="text-center font-bold text-2xl py-4">Add New Folder</h2>
 
 
-      <form action="" onSubmit={addFolder}  className='bg-white shadow-2xl w-[80%] min-h-[80%] mx-auto p-4 rounded-md'>
+      <form action="" onSubmit={addFolder}  className='bg-white shadow-2xl w-[95%] md:w-[80%] min-h-[80%] mx-auto p-4 rounded-md'>
     
         <div className="flex gap-2 py-4">
           {['bg-black', 'bg-purple-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-red-500'].map((color, index) => (

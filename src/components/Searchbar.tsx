@@ -36,7 +36,7 @@ export const Searchbar = () => {
     
   }
   return (
-    <div className="flex h-[50%] w-[30%] md:w-[25%] px-1 relative justify-start items-center rounded-sm bg-gray-200">
+    <div className="flex h-[50%] w-[50%] md:w-[25%] gap-2 px-1 relative md:justify-start justify-between items-center rounded-sm bg-gray-200">
       <input type="text" className="border-none ml-4 outline-none w-full h-full placeholder:text-gray-400 text-xs md:text-sm" 
           placeholder="Search notes..." 
           value={searchInput.trim()}

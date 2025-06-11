@@ -3,15 +3,27 @@ import { FaFolder } from 'react-icons/fa6'
 import { MdNoteAdd } from 'react-icons/md'
 import { Link, useLocation } from 'react-router-dom'
 import { FaHome } from 'react-icons/fa'
+import { motion } from 'framer-motion'
+import type { FC } from 'react'
 
-export const Sidebar = () => {
+interface SidebarProp {
+  sideBarOpen:boolean;
+}
+
+export const Sidebar: FC<SidebarProp> = ({sideBarOpen}) => {
   const location = useLocation()
+  
 
-  const isActive = (path: string) => {
+  const activePage = (path: string) => {
     return location.pathname === path 
   }
   return (
-    <div className="hidden sticky left-0 top-0 h-screen sm:flex justify-between flex-col items-center w-[25%] sm:w-[20%] md:w-[15%] py-4 bg-white">
+    <motion.div 
+      animate={{scale: 1.2}}
+      className={`${sideBarOpen ? 'flex' : 'hidden'} absolute right-0 z-[999] sm:sticky
+      md:left-0 top-0 min-h-screen sm:h-screen sm:flex justify-between flex-col items-center w-[100%]
+      sm:w-[20%] md:w-[15%] py-4 bg-white`} 
+      >
       <div className="py-2 w-[80%] mx-auto">
         <div className="flex items-center w-[80%] md:gap-4 mx-auto">
           <MdNoteAdd className='text-sm md:text-xl text-black' />
@@ -24,14 +36,14 @@ export const Sidebar = () => {
         </div>
         <ul className="block w-[80%] mx-auto justify-center items-center text-gray-400 py-2">
             <Link to={"/"}>
-              <li className={`flex items-center gap-3 text-sm py-1 ${isActive('/') ? 'text-black font-semibold' : ''}`}>
+              <li className={`flex items-center gap-3 text-sm py-1 ${activePage('/') ? 'text-black font-semibold' : ''}`}>
                 <FaHome className='' />
                 <span>Home</span>
               </li>
             </Link>
 
             <Link to="/new-note">
-              <li className={`flex items-center gap-3 text-sm py-1 ${isActive('/new-note') ? 'text-black font-semibold' : ''}`}>
+              <li className={`flex items-center gap-3 text-sm py-1 ${activePage('/new-note') ? 'text-black font-semibold' : ''}`}>
 
                 <MdNoteAdd />
                 <span>New Note</span>
@@ -39,7 +51,7 @@ export const Sidebar = () => {
             </Link>
 
             <Link to="/new-folder">
-              <li className={`flex items-center gap-3 text-sm py-1 ${isActive('/new-folder') ? 'text-black' : ''}`}>
+              <li className={`flex items-center gap-3 text-sm py-1 ${activePage('/new-folder') ? 'text-black' : ''}`}>
                 <FaFolder />
                 <span>New Folder</span>
               </li>
@@ -61,6 +73,6 @@ export const Sidebar = () => {
       </div>
 
 
-    </div>
+    </motion.div>
   )
 }

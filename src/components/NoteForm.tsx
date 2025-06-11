@@ -36,11 +36,11 @@ export const NoteForm = () => {
     }, 1000)
   }
   return (
-      <div className="block w-full h-full">
+      <div className="block w-full">
       <h2 className="text-center font-bold text-2xl py-4">Add Notes or Document</h2>
 
 
-      <form action="" onSubmit={handleChange} className='bg-white shadow-2xl w-[80%] min-h-[80%] mx-auto p-4 rounded-md'>
+      <form action="" onSubmit={handleChange} className='bg-white shadow-2xl w-[95%] md:w-[80%] min-h-[80%] mx-auto p-4 rounded-md'>
         <div className="flex justify-between w-full px-4 items-center">
           <div className="block">
             <select className='text-xs text-gray-400' name="categories" id="" onChange={(e) => setNoteCategory(e.target.value)}>

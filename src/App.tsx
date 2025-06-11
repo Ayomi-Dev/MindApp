@@ -9,16 +9,22 @@ import { Edit } from "./pages/Edit";
 import { SearchPage } from "./pages/SearchPage";
 import { CreateFolderPage } from "./pages/CreateFolderPage";
 import { FolderPage } from "./pages/FolderPage";
+import { useState } from "react";
 
 
 
 function App() {
   const location = useLocation()
+  const [sideBarOpen, setSidebarOpen] = useState(false)
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sideBarOpen)
+  }
   return(
-    <div className="min-h-screen bg-gray-200 w-full">
-          <Topbar />
-          <div className="flex gap-2">
-            <Sidebar />
+    <div className="w-full">
+          <Topbar toggleSidebar={toggleSidebar} />
+          <div className="flex h-screen relative gap-2">
+            <Sidebar sideBarOpen={sideBarOpen} />
           <AnimatePresence mode="wait" initial={false}>
             <Routes location={location} key={location.pathname}>
             

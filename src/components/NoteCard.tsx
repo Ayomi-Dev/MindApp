@@ -14,10 +14,10 @@ export const NoteCard = () => {
     <>
     {notesToFilter.map((note, index) => {
       return (
-        <div className={`${note.bgColor} rounded-md relative w-[250px] p-3 min-h-[100px]`} style={{backgroundColor: note.bgColor}} key={index}>
+        <div className={`${note.bgColor} rounded-md relative w-[95%] mx-auto md:mx-0 md:w-[250px] p-3 min-h-[100px]`} style={{backgroundColor: note.bgColor}} key={index}>
           
           
-          <div className="w-full py-3">
+          <div className="w-full py-3 flex justify-between gap-3">
                 <span className="block text-gray-50 font-light text-[.6rem]">Created: {note.createdAt}</span>
                 <span className="block text-gray-50 font-light text-[.6rem]">Updated: {note.updatedAt}</span>
           </div>
