@@ -1,54 +1,173 @@
-# React + TypeScript + Vite
+# MindPad
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive Notes App built with **React**, **TypeScript**, **Tailwind CSS**, and powerful libraries like **Framer Motion** and **React Toastify**. The app allows users to:
 
-Currently, two official plugins are available:
+- Create and manage notes
+- Create folders and group notes into them
+- Search notes live
+- Filter notes by time (Today, This Week, This Month)
+- Persist notes/folders in browser memory (localStorage)
+- Navigate with clear visual cues and animation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- ✍️ Create, view, and delete **notes**
+- 📁 Create folders and add/remove notes to/from them
+- 🔍 Live search through all notes by title or content
+- ⏳ Filter notes based on creation date: **Today**, **This Week**, **This Month**
+- 💾 Persist data in `localStorage` across sessions
+- 🌈 Color customization for folders
+- 🧭 Highlight active route in the **sidebar**
+- 🎉 Smooth UI animations with Framer Motion
+- ✅ Real-time toast notifications with React Toastify
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Tech Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Tool/Library        | Purpose |
+|---------------------|---------|
+| **React**           | UI library for building the app |
+| **TypeScript**      | Adds type safety and interfaces |
+| **Tailwind CSS**    | Utility-first CSS framework for styling |
+| **React Router DOM**| Client-side routing |
+| **Framer Motion**   | Animations and transitions |
+| **React Toastify**  | Beautiful and customizable toast notifications |
+| **React Icons**     | For clean and consistent iconography |
+| **localStorage**    | To persist data between sessions |
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+---
+
+## 📁 Folder Structure
+
+src/
+│
+├── assets/ # Images and static assets
+├── components/ # Reusable UI components (Sidebar, Topbar, Searchbar)
+├── context/ # Note and Folder context + providers, types and interfaces
+├── pages/ # Route-based components (Home, NewNote, FolderPage, etc.)
+├── App.tsx # App entry point
+└── main.tsx # Renders App and wraps it with providers
+
+## 📦 Dependencies Explained
+
+### 🧩 `framer-motion`
+
+- Used for animating page transitions and component mounts/unmounts.
+- Example: Animate the search results when users start typing.
+- Simple API like:
+  ```tsx
+  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+    {/* content */}
+  </motion.div>
+🔔 react-toastify
+Displays real-time feedback, like "Note saved" or "Folder deleted."
+
+Helps improve user interaction.
+
+Usage:
+
+tsx
+Copy
+Edit
+import { toast } from 'react-toastify';
+
+toast.success("Note created!");
+🎨 tailwindcss
+Utility-first CSS makes styling faster and cleaner.
+
+Enables responsive design and hover/focus states without writing CSS files.
+
+🛣️ react-router-dom
+Handles all routing in the app (e.g., /, /new-note, /folder/:id).
+
+Also used with useLocation to highlight the current page in the sidebar.
+
+📦 localStorage
+Saves notes and folders even after a browser refresh.
+
+Accessed via:
+
+tsx
+Copy
+Edit
+localStorage.setItem("notes", JSON.stringify(notes));
+const stored = JSON.parse(localStorage.getItem("notes") || "[]");
+
+
+🧠 Concepts
+
+🔄 State Management with Context API
+Centralized note and folder logic in NoteContext and FolderContext
+
+Avoids prop drilling across deeply nested components
+
+🔎 Live Search
+Filters notes as the user types in the search input;
+
+Highlights search matches in titles using a highlightText() function
+
+🕓 Time-Based Filters
+Notes are stored with a timestamp ID
+
+getTimeFilterRange() compares note creation date with the current date to filter by:
+
+Today
+
+This Week
+
+This Month
+
+📁 Folders
+Notes are assigned to folders via note IDs
+
+Users can add/remove notes to folders
+
+Folders store a noteIds array that links to associated notes
+
+📥 Getting Started
+1. Clone the repository
+bash
+Copy
+Edit
+git clone https://github.com/yourusername/notes-app.git
+cd notes-app
+2. Install dependencies
+bash
+Copy
+Edit
+npm install
+3. Start development server
+bash
+Copy
+Edit
+npm run dev
+Open http://localhost:5173 in your browser.
+
+✅ To-Do / Future Improvements
+🔒 Add user authentication
+
+☁️ Sync notes with cloud storage
+
+📅 Calendar view for notes
+
+🖼️ Attach images to notes
+
+🧪 Write unit tests
+
+🙌 Acknowledgements
+Thanks to the open-source community and the creators of:
+
+Tailwind CSS
+
+React
+
+Toastify
+
+Framer Motion
+
+React Icons
+
+📄 License
