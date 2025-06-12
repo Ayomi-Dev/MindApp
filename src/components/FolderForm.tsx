@@ -59,8 +59,8 @@ export const FolderForm = () => {
           <button className="text-white bg-green-400 transition-all hover:bg-green-500 px-4 py-2 rounded-sm cursor-pointer text-sm">Add Folder</button>
         </div>
 
-        <div className={`w-[50%] h-[200px] mx-auto ${folderBgColor} text-center rounded-md`}>
-            <input type="text" className='rounded-md border-none w-[50%] text-center text-2xl mx-auto h-full text-white p-2 placeholder:text-gray-300 ' 
+        <div className={`md:w-[50%] w-[80%] h-[200px] mx-auto ${folderBgColor} text-center rounded-md`}>
+            <input type="text" className='rounded-md border-none w-[100%] text-center text-2xl mx-auto h-full text-white p-2 placeholder:text-gray-300 ' 
                 placeholder='Preview here'
                 value={folderTitle}
                 onChange={(e) => setFolderTitle(e.target.value)}

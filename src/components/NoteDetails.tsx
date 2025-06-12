@@ -22,7 +22,7 @@ export const NoteDetails = () => {
                 <div className="bg-white shadow-2xl flex flex-col items-center justify-center rounded-md p-3 min-h-[500px]">
                     <h3 className="text-black text-lg pb-2">{note.title}</h3>
                     <span className="text-gray-400 text-xs">{note.createdAt}</span>
-                    <p className="text-sm text-gray-300 mt-2">{note.content}</p>
+                    <p className="text-[1rem] text-gray-400 mt-2 font-semibold">{note.content}</p>
                     <div className="w-[70%] gap-4 flex text-xs pt-4 justify-between mx-auto">
                       <button className="transition-[2s_ease_in_out] bg-green-400 text-xs  hover:bg-green-600 outline-none rounded-md py-2 px-4 text-white cursor-pointer"
                       >

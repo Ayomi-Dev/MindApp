@@ -10,7 +10,6 @@ export const FolderDetails = () => {
     const { id } = useParams()
     const currentFolder = folders.find(folder => folder.id.toString() === id)
     const folderNotes = notes.filter(note => currentFolder?.noteIds.includes(note.id))
-    console.log(currentFolder?.noteIds)
 
    if(!currentFolder) return <div className="w-full text-center py-5">Folder not found</div>
   return (
