@@ -3,7 +3,7 @@ import { FaFolder } from 'react-icons/fa6'
 import { MdNoteAdd } from 'react-icons/md'
 import { Link, useLocation } from 'react-router-dom'
 import { FaHome } from 'react-icons/fa'
-import { motion } from 'framer-motion'
+
 import type { FC } from 'react'
 
 interface SidebarProp {
@@ -13,16 +13,16 @@ interface SidebarProp {
 export const Sidebar: FC<SidebarProp> = ({sideBarOpen}) => {
   const location = useLocation()
   
-
-  const activePage = (path: string) => {
+  const activePage = (path: string) => { // Function to check if the current path matches the given path
+    window.scrollTo(0, 0) // Scroll to top when the sidebar is opened
     return location.pathname === path 
   }
   return (
-    <motion.div 
-      animate={{scale: 1.2}}
-      className={`${sideBarOpen ? 'flex' : 'hidden'} absolute right-0 z-[999] sm:sticky
-      md:left-0 top-0 min-h-screen sm:h-screen sm:flex justify-between flex-col items-center w-[100%]
-      sm:w-[20%] md:w-[15%] py-4 bg-white`} 
+    <div 
+      className={`fixed right-0 z-[90] md:translate-x-0
+       md:left-0 top-[60px] min-h-screen md:h-screen md:flex justify-between flex-col items-center w-[75%]
+      transform transition-transform duration-300 ease-in-out
+      md:w-[15%] py-4 bg-white ${sideBarOpen ? 'translate-x-0' : 'translate-x-full'}`} 
       >
       <div className="py-2 w-[80%] mx-auto">
         <div className="flex items-center w-[80%] md:gap-4 mx-auto">
@@ -73,6 +73,6 @@ export const Sidebar: FC<SidebarProp> = ({sideBarOpen}) => {
       </div>
 
 
-    </motion.div>
+    </div>
   )
 }

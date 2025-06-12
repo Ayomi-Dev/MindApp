@@ -15,8 +15,8 @@ export const Home = () => {
   return (
     <PageWrapper>
 
-    <main className="w-full">
-      <section className="w-full px-4 sm:p-5">
+    <main className="w-full p-5">
+      <section className="w-full">
         <h2 className="text-xl font-semibold">Recent Folders</h2>
         <div className="w-full flex py-4 text-sm gap-5 text-gray-400">
           {["all", "last24hr", 'thisweek', 'thismonth'].map((range) => {
@@ -26,7 +26,7 @@ export const Home = () => {
           })}
         </div>
         
-        <div className="grid w-full sm:w-[80%] grid-cols-1 md:grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] py-4 gap-4">
+        <div className="grid w-full md:w-[90%] grid-cols-1 md:grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] py-4 gap-4">
           <div className="w-[150px] h-[150px]">
             <Link to='new-folder'>
               <img src={Folder} className='w-full h-full object-cover' alt="" />
@@ -40,7 +40,7 @@ export const Home = () => {
       </section>
 
       
-      <section className="w-full px-4 sm:p-5 block">
+      <section className="w-full block">
         <h2 className="text-xl font-semibold">My Notes</h2>
         <div className="w-full flex py-4 text-sm gap-5 text-gray-400">
           {["all", "last24hr", 'thisweek', 'thismonth'].map((range) => {
@@ -51,8 +51,8 @@ export const Home = () => {
         </div>
         <div className="flex flex-wrap gap-3 w-full">
           <div className="rounded-md flex justify-center items-center p-2">
-            <Link to={`/new-note`}>
-              <MdNoteAdd className='text-2xl text-gray-600' />
+            <Link to={`/new-note`} className='border rounded-sm'>
+              <MdNoteAdd className='text-5xl text-gray-600' />
             </Link>
           </div>
           <NoteCard />

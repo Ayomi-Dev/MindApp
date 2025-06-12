@@ -42,11 +42,11 @@ export const Edit = () => {
         createdAt: `${noteToEdit.createdAt}`,
         updatedAt: `${dateFormat} at ${timeFormat}`
       })
+      setTimeout(() => {
+        navigate(`/note/${noteToEdit.id}`)
+      }, 1000)
     }
 
-    setTimeout(() => {
-      navigate('/')
-    }, 1000)
   }
   return (
     <PageWrapper>

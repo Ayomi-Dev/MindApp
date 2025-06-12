@@ -15,9 +15,9 @@ export const NoteDetails = () => {
       }, 1000)
   }
   return (
-    <section className="w-full h-full px-4 text-center">
+    <section className="w-full h-full text-center">
         <h2 className="text-xl font-semibold text-center py-4">Note Details</h2>
-        <div className="w-[90%] md:w-[60%] mx-auto">
+        <div className="w-[95%] md:w-[60%] mx-auto">
             {note ? (
                 <div className="bg-white shadow-2xl flex flex-col items-center justify-center rounded-md p-3 min-h-[500px]">
                     <h3 className="text-black text-lg pb-2">{note.title}</h3>

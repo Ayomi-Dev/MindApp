@@ -10,7 +10,7 @@ export const PageWrapper = ({children}: {children: ReactNode}) => {
 
   return (
     <motion.div
-      className="flex-1"
+      className="md:w-[85%] md:left-[15%] left-0 top-[60px] relative"
       initial="hidden"
       animate="enter"
       exit="exit"
