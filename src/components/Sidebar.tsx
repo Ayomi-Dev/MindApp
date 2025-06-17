@@ -32,12 +32,10 @@ export const Sidebar: FC<SidebarProp> = ({sideBarOpen}) => {
       >
       <div className="py-2 w-[80%] mx-auto">
         
-        <div className={`${darkMode ? 'text-white font-light' : 'text-gray-600 font-light'} cursor-pointer text-xs sm:text-sm relative flex items-center w-[80%] md:gap-4 mx-auto`}
-         onClick={toggleOpenAddNew}
-        >
+        <div className={`${darkMode ? 'text-white font-light' : 'text-gray-600 font-light'} cursor-pointer text-xs sm:text-sm relative flex items-center w-[80%] md:gap-4 mx-auto`}>
           <MdNoteAdd className='md:text-xl' />
-          <h4 className='text-xs sm:text-sm'>Add new</h4>
-          <div className={`${openAddNew ? 'hidden' : ''} block rounded-md top-[30px] bg-black text-white absolute p-4`}>
+          <h4 className='text-xs sm:text-sm'  onClick={toggleOpenAddNew}>Add new</h4>
+          <div className={`${openAddNew ? 'block' : 'hidden'} rounded-md top-[30px] bg-black text-white absolute p-4`}>
             <Link to='/new-note' className='block pb-2'>New Note</Link>
             <Link to='/new-folder' className='block'>New Folder</Link>
           </div>

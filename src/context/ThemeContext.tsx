@@ -15,7 +15,6 @@ export const ThemeContextProvider = ({ children }: {children : ReactNode}) => {
 
     const toggleDarkMode = () => {
         setDarkMode((prevTheme: boolean) => !prevTheme)
-        console.log('dark mode:', darkMode)
     }
     useEffect(() => {
         document.body.style.background = darkMode ? '#0c0c30' : "#f6f7fb"
