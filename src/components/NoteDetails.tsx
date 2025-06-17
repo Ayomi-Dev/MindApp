@@ -2,9 +2,11 @@ import { FaNoteSticky } from 'react-icons/fa6';
 import { useNoteContext } from '../context/NoteContext'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { MdDelete } from 'react-icons/md';
+import { useThemeContext } from '../context/ThemeContext';
 
 export const NoteDetails = () => {
-    const { notes, deleteNote } = useNoteContext();
+  const { notes, deleteNote } = useNoteContext();
+  const { darkMode } = useThemeContext();
   const navigate = useNavigate()
   const { id } = useParams()
   const note = notes.find(note => note.id.toString() === id)
@@ -16,7 +18,7 @@ export const NoteDetails = () => {
   }
   return (
     <section className="w-full h-full text-center">
-        <h2 className="text-xl font-semibold text-center py-4">Note Details</h2>
+        <h2 className={`${darkMode ? 'text-white' : ''} text-2xl font-semibold text-center py-4`}>Note Details</h2>
         <div className="w-[95%] md:w-[60%] mx-auto">
             {note ? (
                 <div className="bg-white shadow-2xl flex flex-col items-center justify-center rounded-md p-3 min-h-[500px]">

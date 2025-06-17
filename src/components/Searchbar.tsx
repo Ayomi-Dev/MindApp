@@ -2,9 +2,12 @@ import { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { useNoteContext } from '../context/NoteContext'
 import { useNavigate } from 'react-router-dom'
+import { useThemeContext } from '../context/ThemeContext'
 
 export const Searchbar = () => {
   const { notes, setSerachResults } = useNoteContext();
+
+  const { darkMode } = useThemeContext()
 
   const [searchInput, setSearchInput] = useState<string>('');
 
@@ -37,7 +40,7 @@ export const Searchbar = () => {
   }
   return (
     <div className="flex h-[50%] w-[50%] md:w-[25%] gap-2 px-1 relative md:justify-start justify-between items-center rounded-sm bg-gray-200">
-      <input type="text" className="border-none ml-4 outline-none w-full h-full placeholder:text-gray-400 text-xs md:text-sm" 
+      <input type="text" className={`${darkMode ? 'text-black font-bold' : ''} border-none ml-4 outline-none w-full h-full placeholder:text-gray-400 text-xs md:text-sm `}
           placeholder="Search notes..." 
           value={searchInput.trim()}
           onChange={(e)=> {

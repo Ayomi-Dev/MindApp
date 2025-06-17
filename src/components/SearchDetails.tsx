@@ -3,17 +3,19 @@ import { motion } from "framer-motion";
 import { useNoteContext } from "../context/NoteContext";
 import { highlightText } from "../utility/highlightText";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { useThemeContext } from "../context/ThemeContext";
 
 
 export const SearchDetails = () => {
   const { searchResults } = useNoteContext();
   const query = searchResults.length > 0 ? searchResults[0].title : '';
   const navigate = useNavigate()
+  const { darkMode } = useThemeContext()
   
   return (
     <div className="w-full h-full">
       <div className="p-4 w-[95%] md:w-[70%] mx-auto flex flex-col items-center">
-      <h2 className="text-xl font-bold mb-4">Search Results</h2>
+      <h2 className={`${darkMode ? 'text-white' : 'text-black'} text-2xl py-3 font-bold`}>Search Results</h2>
       <button
         onClick={() => navigate('/')}
         className="text-sm bg-gray-400 flex gap-2 items-center text-black px-3 py-1 rounded mb-4 hover:bg-gray-200"
@@ -40,6 +42,6 @@ export const SearchDetails = () => {
         </ul>
       )}
     </div>
-    </div>
+  </div>
   )
 }

@@ -14,7 +14,7 @@ export const Topbar:FC<TopbarProp> = ({toggleSidebar}) => {
   const {darkMode, toggleDarkMode} = useThemeContext()
   
   return (
-    <nav className={`${darkMode ? 'bg-[#101040] text-white' : 'bg-white'} flex items-center md:justify-start justify-between px-0 gap-2 md:px-4 z-[99] w-full h-[60px] top-0 fixed`}>
+    <nav className={`${darkMode ? 'bg-[#101040] text-white' : 'bg-white'} flex items-center md:justify-start justify-between px-2 gap-2 md:px-4 z-[99] w-full h-[60px] top-0 fixed`}>
 
       <div className="sm:flex hidden sm:justify-self-start sm:items-center px-4 w-[10%] sm:w-[15%] text-sm text-gray-400">
         <FaHashtag className="" /> 
@@ -32,7 +32,7 @@ export const Topbar:FC<TopbarProp> = ({toggleSidebar}) => {
       <div className="flex justify-end gap-4 w-[20%] mx-auto text-sm md:text-xl items-center justify-self-end">
         <FaUserCircle className="mr-1 md:block hidden " /> 
         <h3 className="hidden md:block text-sm ">Ayomide</h3>
-        <FaBars className="md:pl-1 mr-3" onClick={toggleSidebar}/>
+        <FaBars className="md:hidden md:pl-1 mr-3" onClick={toggleSidebar}/>
       </div>
         <div className="flex px-2">
           <MdSunny className={`${darkMode ? 'block' : 'hidden'} cursor-pointer`} onClick={toggleDarkMode} />
