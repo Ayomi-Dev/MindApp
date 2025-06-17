@@ -2,6 +2,7 @@ import  { useState } from 'react'
 import { useNoteContext } from '../context/NoteContext'
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useThemeContext } from '../context/ThemeContext';
 
 export const NoteForm = () => {
   const { addNote } = useNoteContext();
@@ -35,9 +36,10 @@ export const NoteForm = () => {
       navigate('/')
     }, 1000)
   }
+  const { darkMode } = useThemeContext()
   return (
       <div className="block w-full">
-      <h2 className="text-center font-bold text-2xl py-4">Add Notes or Document</h2>
+      <h2 className={`${darkMode ? 'text-white' : ''} text-center font-bold text-2xl py-4`}>Add Notes or Document</h2>
 
 
       <form action="" onSubmit={handleChange} className='bg-white shadow-2xl w-[95%] md:w-[80%] min-h-[80%] mx-auto p-4 rounded-md'>

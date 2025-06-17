@@ -1,7 +1,6 @@
 import { FaBars, FaUserCircle } from "react-icons/fa"
 import { Searchbar } from "./Searchbar"
 import { FaHashtag, FaMoon } from "react-icons/fa6"
-// import {isActive} from "../utility/isActive"
 import type { FC } from "react"
 import { Link } from "react-router-dom"
 import { MdSunny } from "react-icons/md"

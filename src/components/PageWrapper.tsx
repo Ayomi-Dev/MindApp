@@ -10,10 +10,10 @@ export const PageWrapper = ({children}: {children: ReactNode}) => {
 
   return (
     <motion.div
-      className="md:w-[85%] md:left-[15%] left-0 top-[60px] relative"
+      className="md:w-[85%] md:left-[15%] md:rounded-tl-lg left-0 top-[60px] relative"
       initial="hidden"
       animate="enter"
-      exit="exit"
+      exit="exit" 
       variants={variants}
       transition={{ duration: .5, ease: 'easeInOut' }}
     >

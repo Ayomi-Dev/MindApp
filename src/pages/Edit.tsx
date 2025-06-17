@@ -2,8 +2,10 @@ import  { useEffect, useState } from 'react'
 import { useNoteContext } from '../context/NoteContext'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { PageWrapper } from '../components/PageWrapper';
+import { useThemeContext } from '../context/ThemeContext';
 
 export const Edit = () => {
+  const { darkMode } = useThemeContext()
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>();
   const {notes, updateNote } = useNoteContext();
@@ -51,7 +53,7 @@ export const Edit = () => {
   return (
     <PageWrapper>
       <div className="block flex-1">
-      <h2 className="text-center font-bold text-2xl py-4">Edit Your Notes</h2>
+      <h2 className={`${darkMode ? 'text-white' : ''} text-center font-bold text-2xl py-4`}>Edit Your Notes</h2>
 
 
       <form action="" onSubmit={handleUpdate} className='bg-white shadow-2xl w-[80%] min-h-[80%] mx-auto p-4 rounded-md'>
