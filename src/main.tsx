@@ -6,11 +6,13 @@ import App from './App.tsx'
 import { NoteProvider } from './context/NoteContext.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { FolderProvider } from './context/FolderContext.tsx'
+import { ThemeContextProvider } from './context/ThemeContext.tsx'
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
+    <ThemeContextProvider>
       <FolderProvider>
         <NoteProvider>
           <ToastContainer
@@ -29,6 +31,7 @@ createRoot(document.getElementById('root')!).render(
           <App />
         </NoteProvider>
       </FolderProvider>
+    </ThemeContextProvider> 
     </BrowserRouter>
   </StrictMode>
 )

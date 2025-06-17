@@ -6,10 +6,12 @@ import { Link } from 'react-router-dom';
 import { MdNoteAdd } from 'react-icons/md';
 import { useNoteContext } from '../context/NoteContext';
 import { PageWrapper } from '../components/PageWrapper';
+import { useThemeContext } from '../context/ThemeContext';
 
 export const Home = () => {
   const { handleFolderFilter, timeFilter, filterData} = useFolderContext();
   const { handleFilter, noteTimeFilter } = useNoteContext()
+  const { darkMode } = useThemeContext()
 
 
   return (
@@ -17,10 +19,13 @@ export const Home = () => {
 
     <main className="w-full p-5">
       <section className="w-full">
-        <h2 className="text-xl font-semibold">Recent Folders</h2>
+        <h2 className={`${darkMode ? 'text-white font-semibold' : ''} text-2xl `}>Recent Folders</h2>
         <div className="w-full flex py-4 text-sm gap-5 text-gray-400">
           {["all", "last24hr", 'thisweek', 'thismonth'].map((range) => {
-            return <span key={range} onClick={() => handleFolderFilter(range as typeof timeFilter)} className={`cursor-pointer hover:text-gray-600 transition-all ${timeFilter === range ? 'text-gray-600 font-semibold' : ''}`}>
+            return <span key={range} onClick={() => handleFolderFilter(range as typeof timeFilter)} 
+              className={`cursor-pointer hover:text-black hover:text-bold transition-all ${timeFilter === range ? 'text-black font-bold' : ''}
+              ${darkMode ? 'text-gray-400 font-light hover:text-white' : ''} ${darkMode && timeFilter === range ? 'text-white font-bold' : ''}
+              `}>
               {range.charAt(0).toUpperCase() + range.slice(1).replace('his', 'his ')}
             </span>
           })}
@@ -41,10 +46,12 @@ export const Home = () => {
 
       
       <section className="w-full block">
-        <h2 className="text-xl font-semibold">My Notes</h2>
+        <h2 className={`${darkMode ? 'text-white font-semibold' : ''} text-2xl `}>My Notes</h2>
         <div className="w-full flex py-4 text-sm gap-5 text-gray-400">
           {["all", "last24hr", 'thisweek', 'thismonth'].map((range) => {
-            return <span key={range} onClick={() => handleFilter(range as typeof noteTimeFilter)} className={`cursor-pointer hover:text-gray-600 transition-all ${noteTimeFilter === range ? 'text-gray-600 font-semibold' : ''}`}>
+            return <span key={range} onClick={() => handleFilter(range as typeof noteTimeFilter)} className={`cursor-pointer hover:text-gray-600 transition-all ${noteTimeFilter === range ? 'text-black font-bold' : ''}
+                ${darkMode ? 'text-gray-400 font-light hover:text-white' : ''} ${darkMode && noteTimeFilter === range ? 'text-white font-bold' : ''}
+            `}>
               {range.charAt(0).toUpperCase() + range.slice(1).replace('his', 'his ')}
             </span>
           })}

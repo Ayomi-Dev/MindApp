@@ -5,13 +5,16 @@ import { Link, useLocation } from 'react-router-dom'
 import { FaHome } from 'react-icons/fa'
 
 import type { FC } from 'react'
+import { useThemeContext } from '../context/ThemeContext'
 
 interface SidebarProp {
   sideBarOpen:boolean;
 }
 
 export const Sidebar: FC<SidebarProp> = ({sideBarOpen}) => {
-  const location = useLocation()
+  const location = useLocation();
+  const { darkMode } = useThemeContext()
+  
   
   const activePage = (path: string) => { // Function to check if the current path matches the given path
     window.scrollTo(0, 0) // Scroll to top when the sidebar is opened
@@ -19,31 +22,31 @@ export const Sidebar: FC<SidebarProp> = ({sideBarOpen}) => {
   }
   return (
     <div 
-      className={`fixed right-0 z-[90] md:translate-x-0
+      className={`fixed right-0 z-[90] md:translate-x-0 
        md:left-0 top-[60px] min-h-screen md:h-screen md:flex justify-between flex-col items-center w-[75%]
       transform transition-transform duration-300 ease-in-out
-      md:w-[15%] py-4 bg-white ${sideBarOpen ? 'translate-x-0' : 'translate-x-full'}`} 
+      md:w-[15%] py-4 ${darkMode ? 'bg-[#101040]' : 'bg-white'} ${sideBarOpen ? 'translate-x-0' : 'translate-x-full'}`} 
       >
       <div className="py-2 w-[80%] mx-auto">
-        <div className="flex items-center w-[80%] md:gap-4 mx-auto">
-          <MdNoteAdd className='text-sm md:text-xl text-black' />
-          <h4 className='font-light text-xs sm:text-sm'>Add new</h4>
+        <div className={`${darkMode ? 'text-white font-light' : 'text-gray-600 font-light'} text-xs sm:text-sm flex items-center w-[80%] md:gap-4 mx-auto`}>
+          <MdNoteAdd className='md:text-xl' />
+          <h4 className='text-xs sm:text-sm'>Add new</h4>
         </div>
         <div className="flex flex-col gap-1 w-[80%] mx-[50px] py-4">
           <span className="bg-yellow-500 rounded-full w-5 h-5"></span>
           <span className="bg-blue-500 rounded-full w-5 h-5"></span>
           <span className="bg-red-500 rounded-full w-5 h-5"></span>
         </div>
-        <ul className="block w-[80%] mx-auto justify-center items-center text-gray-400 py-2">
+        <ul className={`block w-[80%] mx-auto justify-center items-center ${darkMode ? 'text-white font-light' : 'text-gray-600 font-light'} py-2`}>
             <Link to={"/"}>
-              <li className={`flex items-center gap-3 text-sm py-1 ${activePage('/') ? 'text-black font-semibold' : ''}`}>
+              <li className={`flex items-center gap-3 text-sm py-1 ${activePage('/') ? 'font-bold' : ''}`}>
                 <FaHome className='' />
                 <span>Home</span>
               </li>
             </Link>
 
             <Link to="/new-note">
-              <li className={`flex items-center gap-3 text-sm py-1 ${activePage('/new-note') ? 'text-black font-semibold' : ''}`}>
+              <li className={`flex items-center gap-3 text-sm py-1 ${activePage('/new-note') ? 'font-bold' : ''}`}>
 
                 <MdNoteAdd />
                 <span>New Note</span>
@@ -51,7 +54,7 @@ export const Sidebar: FC<SidebarProp> = ({sideBarOpen}) => {
             </Link>
 
             <Link to="/new-folder">
-              <li className={`flex items-center gap-3 text-sm py-1 ${activePage('/new-folder') ? 'text-black' : ''}`}>
+              <li className={`flex items-center gap-3 text-sm py-1 ${activePage('/new-folder') ? 'font-bold' : ''}`}>
                 <FaFolder />
                 <span>New Folder</span>
               </li>

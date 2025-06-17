@@ -12,6 +12,7 @@ interface FolderCardProps {
 
 export const FolderCard: FC<FolderCardProps> = ({folder}) => {
   const {deleteFolder} = useFolderContext()
+// const shadow = ('shadow-' + folder.bgColor.replace('-', '').slice(2))
   return (
     <>
       <div className={`${folder.bgColor} shadow-lg cursor-pointer relative rounded-xl p-4`}>
