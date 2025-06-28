@@ -21,6 +21,8 @@ interface FolderContextType{
     handleFolderFilter: (range: Range ) => void;
     timeFilter: Range;
     filterData : Folder[]; // This will hold the filtered folders based on the time range
+    removeNoteFromAllFolders: (noteID: number) => void; // Function to remove a note from all folders
+    // add any other methods you need
 
 }
 
@@ -82,6 +84,15 @@ export const FolderProvider = ({children}: {children : ReactNode}) => {
         toast.success("Note removed from folder successfully") //shows a success message
     }
 
+    const removeNoteFromAllFolders = (noteID: number) => { //removes selected note from all folders
+        setFolders(prevFolders =>
+            prevFolders.map(folder => ({
+                ...folder,
+                noteIds: folder.noteIds.filter(id => id !== noteID) //filters out the noteId from the noteIds array
+            }))
+        )
+    }
+
     useEffect(()=> { // This effect runs once when the component mounts to check for a saved time filter in localStorage
         const savedFilter = localStorage.getItem('timeFilter') as Range
         if(savedFilter){
@@ -125,7 +136,18 @@ export const FolderProvider = ({children}: {children : ReactNode}) => {
     }, [folders])
 
     return (
-        <FolderContext.Provider value= {{folders, createFolder, addNoteToFolder, deleteFolder, removeNoteFromFolder, handleFolderFilter, timeFilter, filterData} }>
+        <FolderContext.Provider value= {
+            {   folders, 
+                createFolder, 
+                addNoteToFolder, 
+                deleteFolder, 
+                removeNoteFromFolder, 
+                handleFolderFilter, 
+                timeFilter, 
+                filterData, 
+                removeNoteFromAllFolders
+            } 
+        }>
             {children}
         </FolderContext.Provider>
     )

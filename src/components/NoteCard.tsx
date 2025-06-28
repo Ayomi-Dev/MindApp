@@ -7,8 +7,12 @@ import { FaArrowAltCircleRight, FaEdit } from 'react-icons/fa';
 
 export const NoteCard = () => {
   const { deleteNote, notesToFilter} = useNoteContext();
-  const { folders, addNoteToFolder} = useFolderContext()
+  const { folders, addNoteToFolder, removeNoteFromAllFolders} = useFolderContext()
 
+  const handleDeleteNote = (noteId:number) => {
+    deleteNote(noteId);
+    removeNoteFromAllFolders(noteId);
+  }
 
   return (
     <>
@@ -52,7 +56,7 @@ export const NoteCard = () => {
             <span className="text-white font-light text-sm flex items-center gap-2">view more <FaArrowAltCircleRight /></span>
           </Link>
           <div className="w-full mx-auto py-3 flex justify-between">
-            <FaTrash className='text-amber-50 font-light cursor-pointer' onClick={() => deleteNote(note.id)} />
+            <FaTrash className='text-amber-50 font-light cursor-pointer' onClick={() => handleDeleteNote(note.id)} />
             <Link to={`/edit-note/${note.id}`}>
               <FaEdit className='text-amber-50 font-light' />
             </Link>

@@ -39,7 +39,7 @@ export const NoteForm = () => {
   const { darkMode } = useThemeContext()
   return (
       <div className="block w-full">
-      <h2 className={`${darkMode ? 'text-white' : ''} text-center font-bold text-2xl py-4`}>Add Notes or Document</h2>
+      <h2 className={`${darkMode ? 'text-white' : ''} text-center font-bold text-2xl py-4`}>Add Note or Document</h2>
 
 
       <form action="" onSubmit={handleChange} className='bg-white shadow-2xl w-[95%] md:w-[80%] min-h-[80%] mx-auto p-4 rounded-md'>
