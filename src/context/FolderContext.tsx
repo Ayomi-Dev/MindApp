@@ -1,5 +1,5 @@
-import {type ReactNode, createContext, useContext, useEffect, useState } from "react";import { toast } from "react-toastify";
-;
+import {type ReactNode, createContext, useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export interface Folder {
     id: number;
@@ -42,6 +42,15 @@ export const FolderProvider = ({children}: {children : ReactNode}) => {
         toast.success("Folder created successfully") //shows a success message
     }
     const addNoteToFolder = (folderID: number, noteID: number) => {
+        if(folders.some(folder => folder.id === folderID && folder.noteIds.includes(noteID))) { //checks if the note already exists in the folder
+            toast.error("Note already exists in this folder") //shows an error message
+            return;
+        }
+        if(folders.some(folder => folder.noteIds.includes(noteID) && folder.id !== folderID)) { //checks if the note already exists in another folder
+            const existingFolder = folders.find(folder => folder.noteIds.includes(noteID) && folder.id !== folderID); //
+            toast.error(`Note already exists in the ${existingFolder?.title} folder`) //shows an error message
+            return;
+        }
         setFolders(prevFolders =>  //calls the setFunction with the current array of folders in it
             prevFolders.map(folder => //cycle through each folder in the array
             folder.id === folderID //Checks if id of selected folder passed in matches any id of the current folder in the list 
@@ -70,7 +79,7 @@ export const FolderProvider = ({children}: {children : ReactNode}) => {
             :
             folder
         ))
-        toast.info("Note removed from folder successfully") //shows a success message
+        toast.success("Note removed from folder successfully") //shows a success message
     }
 
     useEffect(()=> { // This effect runs once when the component mounts to check for a saved time filter in localStorage

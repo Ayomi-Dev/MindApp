@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useFolderContext } from '../context/FolderContext';
+import { useThemeContext } from '../context/ThemeContext';
 
 export const FolderForm = () => {
     const { createFolder } = useFolderContext()
     const [folderBgColor, setFolderBgColor] = React.useState('bg-white');
     const [folderTitle, setFolderTitle] = React.useState('');
+    const { darkMode } = useThemeContext()
     const navigate = useNavigate()
 
     const addFolder = (e:React.FormEvent ) => {
@@ -32,7 +34,7 @@ export const FolderForm = () => {
     }
   return (
     <div className="block w-full">
-      <h2 className="text-center font-bold text-2xl py-4">Add New Folder</h2>
+      <h2 className={`${darkMode ? 'text-white' : ''} text-center font-bold text-2xl py-4`}>Add New Folder</h2>
 
 
       <form action="" onSubmit={addFolder}  className='bg-white shadow-2xl w-[95%] md:w-[80%] min-h-[80%] mx-auto p-4 rounded-md'>
