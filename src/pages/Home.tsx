@@ -17,8 +17,8 @@ export const Home = () => {
   return (
     <PageWrapper>
 
-    <main className="w-full p-5">
-      <section className="w-full">
+      <main className="w-full p-5">
+        <section className="w-full">
         <h2 className={`${darkMode ? 'text-white font-semibold' : ''} text-2xl `}>Recent Folders</h2>
         <div className="w-full flex py-4 text-sm gap-5 text-gray-400">
           {["all", "last24hr", 'thisweek', 'thismonth'].map((range) => {
@@ -42,10 +42,10 @@ export const Home = () => {
           })}
                       
         </div>
-      </section>
-
-      
-      <section className="w-full block">
+        </section>
+          
+          
+        <section className="w-full block">
         <h2 className={`${darkMode ? 'text-white font-semibold' : ''} text-2xl `}>My Notes</h2>
         <div className="w-full flex py-4 text-sm gap-5 text-gray-400">
           {["all", "last24hr", 'thisweek', 'thismonth'].map((range) => {
@@ -64,8 +64,8 @@ export const Home = () => {
           </div>
           <NoteCard />
         </div>
-      </section>
-    </main>
+        </section>
+      </main>
     </PageWrapper>
   )
 }

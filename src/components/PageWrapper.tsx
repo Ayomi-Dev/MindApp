@@ -9,7 +9,7 @@ export const PageWrapper = ({children}: {children: ReactNode}) => {
     };
 
   return (
-    <motion.div
+    <motion.section
       className="md:w-[85%] md:left-[15%] md:rounded-tl-lg left-0 top-[60px] relative"
       initial="hidden"
       animate="enter"
@@ -19,6 +19,6 @@ export const PageWrapper = ({children}: {children: ReactNode}) => {
     >
       {children}
 
-    </motion.div>
+    </motion.section>
   )
 }

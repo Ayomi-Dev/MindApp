@@ -33,6 +33,11 @@ export const NoteDetails = () => {
                           <span>Edit</span> 
                         </Link>
                       </button>
+                      <button className="bg">
+                        <Link to="/" className='flex items-center justify-center bg-gray-300 gap-2 text-xs hover:bg-gray-200 outline-none rounded-md px-4 py-2 text-white transition-[2s_ease_in_out] cursor-pointer'>
+                          <span>Back Home</span>
+                        </Link>
+                      </button>
                       <button className="bg-red-400 flex gap-2 items-center text-xs hover:bg-red-600 outline-none rounded-md px-4 py-2 text-white transition-[2s_ease_in_out] cursor-pointer" 
                         onClick={() => handleDelete(note.id)}>
                         <MdDelete />

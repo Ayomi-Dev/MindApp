@@ -15,7 +15,7 @@ export const FolderCard: FC<FolderCardProps> = ({folder}) => {
 // const shadow = ('shadow-' + folder.bgColor.replace('-', '').slice(2))
   return (
     <>
-      <div className={`${folder.bgColor} shadow-lg cursor-pointer relative rounded-xl p-4`}>
+      <div className={`${folder.bgColor} hover:opacity-[0.9] transition-[1s] shadow-2xl cursor-pointer relative rounded-md p-4`}>
         <div className="absolute w-[20px] h-[20px] right-0 top-[-10px] flex justify-center items-center rounded-full bg-red-400 text-white font-bold">
           <span>{folder.noteIds.length}</span>
         </div>
