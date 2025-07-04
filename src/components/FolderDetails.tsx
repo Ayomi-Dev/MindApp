@@ -1,11 +1,12 @@
-import { useFolderContext } from '../context/FolderContext'
-import { Link, useParams } from 'react-router-dom'
-import { useNoteContext } from '../context/NoteContext'
-import { MdDelete, MdNoteAdd } from 'react-icons/md'
-import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa'
-import { FaNoteSticky } from 'react-icons/fa6'
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useFolderContext } from '../context/FolderContext';
+import { Link, useParams } from 'react-router-dom';
+import { useNoteContext } from '../context/NoteContext';
+import { MdDelete, MdNoteAdd } from 'react-icons/md';
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
+import { FaNoteSticky } from 'react-icons/fa6';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useThemeContext } from '../context/ThemeContext';
 
 
 
@@ -14,10 +15,11 @@ import { motion } from 'framer-motion'
 export const FolderDetails = () => {
     const { folders, removeNoteFromFolder, addNoteToFolder } = useFolderContext()
     const { notes, addNote, deleteNote } = useNoteContext()
+    const { darkMode } = useThemeContext()
     const { id } = useParams()
     const currentFolder = folders.find(folder => folder.id.toString() === id)
     const folderNotes = notes.filter(note => currentFolder?.noteIds.includes(note.id))
-    const [create, setCreate] = useState(false)
+    const [create, setCreate] = useState(false) // State to control note creation
     const [ noteTitle, setNoteTitle ] = useState('');
     const [ noteContent, setNoteContent ] = useState('');
     const [ noteCategory, setNoteCategory ] = useState('');
@@ -58,7 +60,9 @@ export const FolderDetails = () => {
       }
     }
        
-  if(!currentFolder) return <div className="w-full text-center py-5">Folder not found</div>
+  if(!currentFolder) return <div className={`${darkMode ? 'text-white' : 'text-black'} md:text-3xl font-bold h-[500px] w-full flex justify-center items-center`}>
+        <Link to="/" className='p-2 align-middle text-sm rounded-[50%]'><FaArrowAltCircleLeft /></Link> Folder Not Found 
+  </div>
 
 
 
@@ -66,20 +70,20 @@ export const FolderDetails = () => {
     <div className="flex-1 py-4">
         {currentFolder && (
           <div className="w-[95%] md:w-[80%] mx-auto bg-white shadow-md py-3">
-            <h1 className='text-center text-2xl font-bold'>{currentFolder.title}</h1>  
+            <h1 className='text-center text-2xl py-3 font-bold'><Link to={`/`} className='p-2 align-middle rounded-[50%] inline-block'><FaArrowAltCircleLeft /></Link>{currentFolder.title}</h1>  
             {
               folderNotes.length === 0 ? 
               (
                   <div className="block">
-                    <p className='text-center font-semibold'>No notes in this folder yet  </p>
+                    <p className='text-center font-semibold py-2'>No notes in this folder yet  </p>
 
                     <div className="flex justify-center gap-4 items-center w-full">
                       <Link to="/" className='text-xs hover:bg-gray-200 p-2 rounded-sm bg-gray-100'>Back To Home  <FaArrowAltCircleLeft className='inline-block' /></Link>
 
                         <button className="flex justify-center cursor-pointer bg-green-500 hover:bg-green-600 text-white gap-4 rounded-md px-4 py-2" onClick={() => setCreate(true)}>
-                           <FaNoteSticky className='text-xs' />
-                           <span className='text-xs font-semibold'>Add A Note</span>
-                         </button>
+                          <FaNoteSticky className='text-xs' />
+                          <span className='text-xs font-semibold'>Add A Note</span>
+                        </button>
                     </div>
                   </div>
               )
@@ -109,7 +113,7 @@ export const FolderDetails = () => {
             }
 
             {create && (
-              <form action="" onSubmit={handleCreateNote} className='bg-white shadow-2xl w-[95%] md:w-[80%] min-h-[80%] mx-auto p-4 rounded-md'>Add commentMore actions
+              <form action="" onSubmit={handleCreateNote} className='bg-white shadow-2xl w-[95%] md:w-[80%] min-h-[80%] mx-auto p-4 rounded-md'>Add Note
                 <div className="flex justify-between w-full px-4 items-center">
                   <div className="block">
                     <select className='text-xs text-gray-400' name="categories" id="" onChange={(e) => setNoteCategory(e.target.value)}>

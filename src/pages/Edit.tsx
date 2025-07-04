@@ -87,7 +87,7 @@ export const Edit = () => {
 
         <label htmlFor="" className="block text-xs py-2 text-gray-700">Notes</label>
         <textarea name="notes" id="" rows={10} required
-                  className={`${noteBgColor} text-sm rounded-sm w-full border-[1px] border-gray-300 outline-none p-2 placeholder:text-gray-300 `}
+                  className={`${noteBgColor} text-sm text-white rounded-sm w-full border-[1px] border-gray-300 outline-none p-2 placeholder:text-gray-300 `}
                   placeholder='Write your idea here...'
                   onChange={(e) => setNoteContent(e.target.value)}
                   style={{ backgroundColor: noteBgColor }}
